@@ -7,7 +7,7 @@
       >
         <q-input outlined v-model="email" label="이메일">
           <template v-slot:after>
-            <q-btn :ripple="false" color="grey-6" label="중복확인" no-caps />
+            <q-btn :ripple="false" color="grey-6" label="중복 확인" no-caps />
           </template>
         </q-input>
 
