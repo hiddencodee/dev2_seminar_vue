@@ -25,3 +25,16 @@ $] cd vuedash
 $] yarn install
 $] yarn run serve
 ```
+
+## vuex 적용
+ - src/store : vuex 메인 디렉토리
+ - src/store/modules : 상태 모듈 디렉토리, 해당 디렉토리에 상태 모듈 별 코드 추가
+ - global로 적용해서 어떤 컴포넌트든 쉽게 접근 가능 하도록 적용
+ - getter 사용법
+```
+this.$store.getters['name'];
+```
+ - dispatch 사용법
+```
+await this.$store.dispatch('type', payload);
+```
