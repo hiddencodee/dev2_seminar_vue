@@ -26,6 +26,23 @@ $] yarn install
 $] yarn run serve
 ```
 
+## 디버깅 방법
+ - launch.json 작성
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Launch",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
+```
+
 ## vuex 적용
  - src/store : vuex 메인 디렉토리
  - src/store/modules : 상태 모듈 디렉토리, 해당 디렉토리에 상태 모듈 별 코드 추가
