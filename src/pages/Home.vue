@@ -1,11 +1,9 @@
 <template>
-  <q-layout view="lHh LpR lFf" style="font-family: Lato;">
+  <q-layout view="lHh lpR lFf">
     <comp-header />
+    <comp-side-bar />
     <q-page-container>
-      <div class="row bg-white q-mt-sm">
-        <comp-side-bar />
-        <router-view />
-      </div>
+      <router-view />
     </q-page-container>
     <comp-footer />
   </q-layout>

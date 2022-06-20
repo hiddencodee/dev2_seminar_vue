@@ -1,30 +1,18 @@
 <template>
-  <q-header reveal elevated style="background-color: #1f509e;">
-    <q-toolbar v-if="$q.platform.is.desktop" class="q-py-sm">
-      <!--<q-btn @click="left = !left" flat round dense icon="menu" class="q-mr-sm" />-->
-      <img @click="$router.push('/home')" class="cursor-pointer" src="@/assets/logo.png" style="width: 3%"/>
+  <q-header elevated class="bg-primary text-white" height-hint="98">
+    <q-toolbar>
+      <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
       <q-toolbar-title>
-        <span class="float-left q-mt-xs text-h6 text-weight-bold" style="font-size: 17px;">VueDash</span>
-        <q-input
-          class="float-left q-ml-xl"
-          style="width: 650px;"
-          square
-          bg-color="white"
-          dense outlined
-          v-model="text"
-          label="Search..."
-        />
+        VueDash
       </q-toolbar-title>
-
-      <!--<q-btn flat dense icon="shopping_cart" class="text-capitalize q-mr-md text-bold" label="Cart"/>-->
-      <q-btn class="q-mr-md" dense round flat icon="shopping_cart">
-        <q-badge color="red" class="text-bold" floating transparent>
-          4
-        </q-badge>
-      </q-btn>
-      <q-btn flat round dense icon="settings" class="q-mr-md"/>
-      <q-btn flat round dense icon="fas fa-sign-out-alt" to="/"/>
     </q-toolbar>
+    <!--
+    <q-tabs align="left">
+      <q-route-tab to="/page1" label="Page One" />
+      <q-route-tab to="/page2" label="Page Two" />
+      <q-route-tab to="/page3" label="Page Three" />
+    </q-tabs>
+    -->
   </q-header>
 </template>
 
@@ -32,7 +20,19 @@
 </style>
 
 <script>
+import { ref } from 'vue';
+
 export default {
   name: "comp-header",
+  setup () {
+    const leftDrawerOpen = ref(false)
+
+    return {
+      leftDrawerOpen,
+      toggleLeftDrawer () {
+        leftDrawerOpen.value = !leftDrawerOpen.value
+      }
+    }
+  }
 };
 </script>

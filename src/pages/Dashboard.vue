@@ -1,6 +1,8 @@
 <template>
-  <q-page class="flex flex-center">
-  </q-page>
+  <q-page-container>
+    <q-page class="flex flex-center">
+    </q-page>
+  </q-page-container>
 </template>
 
 <style>
