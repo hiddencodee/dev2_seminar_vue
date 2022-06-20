@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh lpR lFf">
     <comp-header :toggleLeftDrawer="toggleLeftDrawer" />
-    <comp-side-bar v-model="leftDrawerOpen" />
+    <comp-side-bar v-model="drawerOpen" :drawerMenu="drawerMenu" />
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -26,12 +26,50 @@ export default {
   },
   data() {
     return {
-      leftDrawerOpen: false,
+      drawerOpen: false,
+      drawerMenu: [
+        {
+          icon: 'inbox',
+          label: 'Inbox',
+          separator: true
+        },
+        {
+          icon: 'send',
+          label: 'Outbox',
+          separator: false
+        },
+        {
+          icon: 'delete',
+          label: 'Trash',
+          separator: false
+        },
+        {
+          icon: 'error',
+          label: 'Spam',
+          separator: true
+        },
+        {
+          icon: 'settings',
+          label: 'Settings',
+          separator: false
+        },
+        {
+          icon: 'feedback',
+          label: 'Send Feedback',
+          separator: false
+        },
+        {
+          icon: 'help',
+          iconColor: 'primary',
+          label: 'Help',
+          separator: false
+        },
+      ],
     }
   },
   methods: {
     toggleLeftDrawer() {
-      this.leftDrawerOpen = !this.leftDrawerOpen;
+      this.drawerOpen = !this.drawerOpen;
     },
   },
 };
