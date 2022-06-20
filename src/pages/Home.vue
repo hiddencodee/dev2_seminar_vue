@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh lpR lFf">
-    <comp-header />
-    <comp-side-bar />
+    <comp-header :toggleLeftDrawer="toggleLeftDrawer" />
+    <comp-side-bar v-model="leftDrawerOpen" />
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -23,6 +23,16 @@ export default {
     CompHeader,
     CompSideBar,
     CompFooter,
+  },
+  data() {
+    return {
+      leftDrawerOpen: false,
+    }
+  },
+  methods: {
+    toggleLeftDrawer() {
+      this.leftDrawerOpen = !this.leftDrawerOpen;
+    },
   },
 };
 </script>

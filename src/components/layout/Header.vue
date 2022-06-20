@@ -20,19 +20,10 @@
 </style>
 
 <script>
-import { ref } from 'vue';
-
 export default {
   name: "comp-header",
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
+  props: {
+    toggleLeftDrawer: { type: Function },
+  },
 };
 </script>
