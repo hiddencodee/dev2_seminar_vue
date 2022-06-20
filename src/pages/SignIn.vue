@@ -48,6 +48,7 @@ export default {
       //console.log(pw);
 
       await this.$store.dispatch('login', { email, password});
+      this.$router.push({ path: '/home' });
     },
     onClickSignUp() {
       this.$router.push({ path: '/signup' });
