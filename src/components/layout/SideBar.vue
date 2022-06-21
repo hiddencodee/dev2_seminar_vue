@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "comp-side-bar",
+  name: "layout-side-bar",
   props: {
     drawerOpen: { type: Boolean },
     drawerMenu: { type: Array },

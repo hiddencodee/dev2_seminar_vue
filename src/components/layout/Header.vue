@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "comp-header",
+  name: "layout-header",
   props: {
     toggleLeftDrawer: { type: Function },
   },

@@ -1,11 +1,11 @@
 <template>
   <q-layout view="lHh lpR lFf">
-    <comp-header :toggleLeftDrawer="toggleLeftDrawer" />
-    <comp-side-bar v-model="drawerOpen" :drawerMenu="drawerMenu" />
+    <layout-header :toggleLeftDrawer="toggleLeftDrawer" />
+    <layout-side-bar v-model="drawerOpen" :drawerMenu="drawerMenu" />
     <q-page-container>
       <router-view />
     </q-page-container>
-    <comp-footer />
+    <layout-footer />
   </q-layout>
 </template>
 
@@ -13,16 +13,16 @@
 </style>
 
 <script>
-import CompHeader from '@/components/layout/Header.vue';
-import CompSideBar from '@/components/layout/SideBar.vue';
-import CompFooter from '@/components/layout/Footer.vue';
+import LayoutHeader from '@/components/layout/Header.vue';
+import LayoutSideBar from '@/components/layout/SideBar.vue';
+import LayoutFooter from '@/components/layout/Footer.vue';
 
 export default {
   name: "page-home",
   components: {
-    CompHeader,
-    CompSideBar,
-    CompFooter,
+    LayoutHeader,
+    LayoutSideBar,
+    LayoutFooter,
   },
   data() {
     return {

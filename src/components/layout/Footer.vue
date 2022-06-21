@@ -15,6 +15,6 @@
 
 <script>
 export default {
-  name: "comp-footer"
+  name: "layout-footer"
 };
 </script>
