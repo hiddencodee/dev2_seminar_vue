@@ -1,12 +1,23 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <HeaderView></HeaderView>
+    <router-view></router-view>
+    <FooterView></FooterView>
   </div>
 </template>
+
+<script>
+import HeaderView from '@/components/layout/HeaderView.vue';
+import FooterView from '@/components/layout/FooterView.vue';
+
+export default {
+  name: 'App',
+  components: {
+    HeaderView,
+    FooterView,
+  },
+};
+</script>
 
 <style>
 #app {
