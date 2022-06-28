@@ -1,5 +1,7 @@
 <template>
-  <q-footer elevated class="bg-grey-8 text-white">
+  <q-footer
+    elevated
+    class="bg-grey-8 text-white">
     <q-toolbar>
       <q-toolbar-title>
         <div class="fit row wrap justify-end items-start content-start">
@@ -15,6 +17,6 @@
 
 <script>
 export default {
-  name: "layout-footer"
+  name: "LayoutFooter"
 };
 </script>

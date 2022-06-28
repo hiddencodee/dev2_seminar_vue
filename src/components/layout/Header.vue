@@ -1,7 +1,15 @@
 <template>
-  <q-header elevated class="bg-primary text-white" height-hint="98">
+  <q-header
+    elevated
+    class="bg-primary text-white"
+    height-hint="98">
     <q-toolbar>
-      <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+      <q-btn
+        dense
+        flat
+        round
+        icon="menu"
+        @click="toggleLeftDrawer" />
       <q-toolbar-title>
         VueDash
       </q-toolbar-title>
@@ -21,7 +29,7 @@
 
 <script>
 export default {
-  name: "layout-header",
+  name: "LayoutHeader",
   props: {
     toggleLeftDrawer: { type: Function },
   },

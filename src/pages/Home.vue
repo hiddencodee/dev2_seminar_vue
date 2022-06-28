@@ -1,7 +1,9 @@
 <template>
   <q-layout view="lHh lpR lFf">
-    <layout-header :toggleLeftDrawer="toggleLeftDrawer" />
-    <layout-side-bar v-model="drawerOpen" :drawerMenu="drawerMenu" />
+    <layout-header :toggle-left-drawer="toggleLeftDrawer" />
+    <layout-side-bar
+      v-model="drawerOpen"
+      :drawer-menu="drawerMenu" />
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -18,7 +20,7 @@ import LayoutSideBar from '@/components/layout/SideBar.vue';
 import LayoutFooter from '@/components/layout/Footer.vue';
 
 export default {
-  name: "page-home",
+  name: "PageHome",
   components: {
     LayoutHeader,
     LayoutSideBar,

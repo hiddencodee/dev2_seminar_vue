@@ -11,7 +11,7 @@
 import KakaoMap from '@/components/map/KakaoMap.vue';
 
 export default {
-  name: "page-dashboard",
+  name: "PageDashboard",
   components: {
     KakaoMap,
   }

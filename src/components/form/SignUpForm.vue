@@ -5,33 +5,37 @@
       outlined
       v-model="email"
       label="e-mail"
-      lazy-rules
-    />
+      lazy-rules />
     <q-input
       dense
       type="password"
       outlined
       v-model="password"
       label="Password"
-      lazy-rules
-    />
+      lazy-rules />
     <q-input
       dense
       type="password"
       outlined
       v-model="repassword"
       label="Confirm Password"
-      lazy-rules
-    />
+      lazy-rules />
     <q-input
       dense
       outlined
       v-model="name"
       label="name"
-      lazy-rules
-    />
+      lazy-rules />
     <div>
-      <q-btn @click="onClickSignUp(email, password, repassword, name)" class="text-capitalize full-width" size="md" style="width:75px" dense label="SignUp" type="button" color="primary" />
+      <q-btn
+        @click="onClickSignUp(email, password, repassword, name)"
+        class="text-capitalize full-width"
+        size="md"
+        style="width:75px"
+        dense
+        label="SignUp"
+        type="button"
+        color="primary" />
     </div>
   </q-form>
 </template>
@@ -41,7 +45,7 @@
 
 <script>
 export default {
-  name: 'sign-in-form',
+  name: 'SignInForm',
   props: {
     onClickSignUp: { type: Function },
   },
