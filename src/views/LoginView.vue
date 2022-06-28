@@ -1,62 +1,132 @@
 <template>
-  <form>
-    <!-- Email input -->
-    <MDBInput
-      type="email"
-      label="Email address"
-      id="form1Email"
-      v-model="form1Email"
-      wrapperClass="mb-4"
-    />
-    <!-- Password input -->
-    <MDBInput
-      type="password"
-      label="Password"
-      id="form1Password"
-      v-model="form1Password"
-      wrapperClass="mb-4"
-    />
-    <!-- 2 column grid layout for inline styling -->
-    <MDBRow class="mb-4">
-      <MDBCol class="d-flex justify-content-center">
-        <!-- Checkbox -->
-        <MDBCheckbox
-          label="Remember me"
-          id="form1LoginCheck"
-          v-model="form1LoginCheck"
-          wrapperClass="mb-3 mb-md-0"
-        />
-      </MDBCol>
-      <MDBCol>
-        <!-- Simple link -->
-        <a href="#!">Forgot password?</a>
-      </MDBCol>
-    </MDBRow>
-    <!-- Submit button -->
-    <MDBBtn color="primary" block> Sign in </MDBBtn>
-  </form>
+  <div>
+    <div class="login-page">
+      <transition name="false">
+        <div v-if="!registerActive" class="wallpaper-login"></div>
+      </transition>
+      <div class="wallpaper-register"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+            <div
+              v-if="!registerActive"
+              class="card login"
+              v-bind:class="{
+                error: emptyFields,
+              }"
+            >
+              <h1>Sign In</h1>
+              <form class="form-group" @submit="loginAction()">
+                <input
+                  v-model="emailLogin"
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email address"
+                  required
+                />
+                <input
+                  v-model="passwordLogin"
+                  type="password"
+                  class="form-control"
+                  placeholder="Enter password"
+                  required
+                />
+                <b-button
+                  type="submit"
+                  class="btn btn-primary"
+                  variant="primary"
+                  >Sign in</b-button
+                >
+                <!-- <input
+                  v-model="dd"
+                  type="submit"
+                  class="btn btn-primary"
+                  @click="loginAction"
+                /> -->
+                <p>
+                  Don't have an account?
+                  <a
+                    href="#"
+                    @click="
+                      (registerActive = !registerActive), (emptyFields = false)
+                    "
+                    >Sign up here</a
+                  >
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-import { MDBRow, MDBCol, MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
-import { ref } from "vue";
 export default {
-  components: {
-    MDBRow,
-    MDBCol,
-    MDBInput,
-    MDBCheckbox,
-    MDBBtn,
-  },
-  setup() {
-    const form1Email = ref("");
-    const form1Password = ref("");
-    const form1LoginCheck = ref(true);
-
+  data() {
     return {
-      form1Email,
-      form1Password,
-      form1LoginCheck,
+      registerActive: false,
+      emailLogin: "",
+      passwordLogin: "",
+      emailReg: "",
+      passwordReg: "",
+      emptyFields: false,
     };
+  },
+  method: {
+    loginAction() {
+      if (this.emailLogin == "" || this.passwordLogin === "") {
+        this.emptyFields = true;
+      } else {
+        alert("You are successfully logged in");
+      }
+    },
   },
 };
 </script>
+<style scoped>
+p {
+  line-height: 1rem;
+  padding-top: 20px;
+}
+
+.card {
+  padding: 20px;
+}
+
+.form-group input {
+  margin-bottom: 20px;
+}
+
+.login-page {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+}
+.wallpaper-login {
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.wallpaper-register {
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+}
+</style>

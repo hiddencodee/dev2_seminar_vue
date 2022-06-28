@@ -1,14 +1,25 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import DashboardView from "../views/DashboardView.vue";
+import ProjectListView from "../views/ProjectListView.vue";
+import BasicLayout from "@/layouts/CommonLayout.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "dashboard",
-    component: DashboardView,
+    component: BasicLayout,
+    children: [
+      {
+        path: "/",
+        component: DashboardView,
+      },
+      {
+        path: "projects",
+        component: ProjectListView,
+      },
+    ],
   },
   {
     path: "/login",
@@ -18,6 +29,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes,
 });
 
