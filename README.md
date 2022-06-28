@@ -55,3 +55,15 @@ this.$store.getters['name'];
 ```
 await this.$store.dispatch('type', payload);
 ```
+
+## eslint 적용
+ - `.eslintrc.js` lint 정의 파일 추가
+ - `vue-cli`로 설치 된 `@babel/eslint-parser`사용 하여 구성
+ - lint 검사 명령어
+```
+$] yarn run lint
+```
+ - lint 검사 후 적용 명령어
+```
+$] yarn run lint:fix
+```
