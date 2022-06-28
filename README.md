@@ -1,4 +1,4 @@
-# vuedash
+# vue mini project
 
 ## 개발 환경
  - 패키지 관리 : npm
