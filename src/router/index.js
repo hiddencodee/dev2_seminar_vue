@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import DashboardView from "../views/DashboardView.vue";
 import ProjectListView from "../views/ProjectListView.vue";
+import ProjectRegisterView from "../views/ProjectRegisterView.vue";
 import BasicLayout from "@/layouts/CommonLayout.vue";
 
 Vue.use(VueRouter);
@@ -18,6 +19,10 @@ const routes = [
       {
         path: "projects",
         component: ProjectListView,
+      },
+      {
+        path: "projects/register",
+        component: ProjectRegisterView,
       },
     ],
   },

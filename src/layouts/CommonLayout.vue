@@ -31,7 +31,7 @@ export default {
   methods: {
     signoutAction() {
       // axios 로 처리 로그인화면으로 이동시켜
-      if (confirm("do you want to sign out?")) {
+      if (confirm("로그아웃 하시겠습니까?")) {
         location.href = "/login";
       }
     },
@@ -48,7 +48,7 @@ export default {
 }
 
 .content-wrap {
-  background: url(@/assets/backgroudImg2.png) no-repeat;
+  /* background: url(@/assets/images/backgroudImg2.png) no-repeat; */
   position: relative;
 }
 .content {
@@ -59,8 +59,12 @@ export default {
 }
 .nav-right {
   position: absolute;
+  right: 0;
   margin-top: 18px;
   margin-right: 18px;
+}
+.nav-right p {
   display: inline;
+  margin-right: 10px;
 }
 </style>
