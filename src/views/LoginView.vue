@@ -1,4 +1,6 @@
 <template>
+<div>
+<router-view></router-view>
   <div id="container"> 인사관리시스템
     <div id="login">
       <form> <!-- 메서드 생성 -->
@@ -22,6 +24,8 @@
     <img src="@/assets/naver.jpg" alt="" id="naverLogin" />
 
   </div>
+
+</div>
 
 </template>
 
