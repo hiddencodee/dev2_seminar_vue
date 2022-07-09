@@ -1,78 +1,122 @@
 /* eslint-disable max-len */
 <template>
-  <div id="container"> {{msg}}
+  <div id="container">
+    {{ msg }}
     <div id="login">
       <b-container fluid>
         <b-row class="my-1">
-          <b-col sm="4">이메일주소</b-col>
+          <b-col sm="4">
+            이메일주소
+          </b-col>
           <b-col sm="6">
-          <b-form-input id="" type="email"></b-form-input>
+            <b-form-input
+              id=""
+              type="email" />
           </b-col>
           <b-col sm="2">
-          <b-button id="" >중복확인</b-button>
+            <b-button id="">
+              중복확인
+            </b-button>
           </b-col>
         </b-row>
         <b-row class="my-1">
-          <b-col sm="4">비밀번호</b-col>
+          <b-col sm="4">
+            비밀번호
+          </b-col>
           <b-col sm="8">
-          <b-form-input id="" type="password"></b-form-input>
+            <b-form-input
+              id=""
+              type="password" />
           </b-col>
         </b-row>
         <b-row class="my-1">
-          <b-col sm="4">비밀번호확인</b-col>
+          <b-col sm="4">
+            비밀번호확인
+          </b-col>
           <b-col sm="8">
-          <b-form-input id="" type="password"></b-form-input>
+            <b-form-input
+              id=""
+              type="password" />
           </b-col>
         </b-row>
 
         <b-row class="my-1">
-          <b-col sm="4">주소</b-col>
+          <b-col sm="4">
+            주소
+          </b-col>
           <b-col sm="2">
-          <b-form-input v-model="zip" type="text" placeholder="우편번호" disabled></b-form-input>
+            <b-form-input
+              v-model="zip"
+              type="text"
+              placeholder="우편번호"
+              disabled />
           </b-col>
           <b-col sm="4">
-          <b-form-input v-model="addr" type="text"></b-form-input>
+            <b-form-input
+              v-model="addr"
+              type="text" />
           </b-col>
           <b-col sm="2">
-          <b-button @click="modalShow = !modalShow">주소검색</b-button>
-          <b-modal id="hideModal" v-model="modalShow">
-          <DaumPostcode :on-complete="oncomplete"/>
-          </b-modal>
+            <b-button @click="modalShow = !modalShow">
+              주소검색
+            </b-button>
+            <b-modal
+              id="hideModal"
+              v-model="modalShow"
+              ref="target">
+              <DaumPostcode :on-complete="oncomplete" />
+            </b-modal>
           </b-col>
         </b-row>
         <b-row class="my-1">
-          <b-col sm="4">상세주소</b-col>
+          <b-col sm="4">
+            상세주소
+          </b-col>
           <b-col sm="8">
-          <b-form-input v-model="daddr" type="text"></b-form-input>
+            <b-form-input
+              v-model="daddr"
+              type="text" />
           </b-col>
         </b-row>
 
         <b-row class="my-1">
-          <b-col sm="4">부서</b-col>
+          <b-col sm="4">
+            부서
+          </b-col>
           <b-col sm="8">
-          <b-form-select v-model="depart"
-          :options="departs">
-          </b-form-select>
+            <b-form-select
+              v-model="depart"
+              :options="departs" />
           </b-col>
         </b-row>
         <b-row class="my-1">
-          <b-col sm="4">직위</b-col>
+          <b-col sm="4">
+            직위
+          </b-col>
           <b-col sm="8">
-          <b-form-select v-model="position"
-          :options="this.$store.state.joinStore.position"
-          :value="$store.state.joinStore.default">
-          </b-form-select>
+            <b-form-select
+              v-model="position"
+              :options="this.$store.state.joinStore.position" />
           </b-col>
         </b-row>
       </b-container>
-
     </div>
 
-    <b-button block variant="success" id="beforeBtn" @click="beforeBtn()" >이전</b-button>
-    <b-button block variant="success" id="joinBtn" @click="move()" >회원가입</b-button>
-
+    <b-button
+      block
+      variant="success"
+      id="beforeBtn"
+      @click="beforeBtn()">
+      이전
+    </b-button>
+    <b-button
+      block
+      variant="success"
+      id="joinBtn"
+      @click="move()">
+      회원가입
+    </b-button>
   </div>
-
 </template>
 
 <style scoped>
@@ -117,6 +161,7 @@ export default {
       zip: '',
       addr: '',
       daddr: '',
+      position: null,
       depart: null,
       departs: [
         { value: null, text: '부서선택' },
@@ -125,6 +170,7 @@ export default {
         { value: 'c', text: '기획팀' },
         { value: 'd', text: '회계팀' },
       ],
+
     };
   },
   methods: {
@@ -140,7 +186,8 @@ export default {
       // 우편번호를 입력한다.
       this.zip = data.zonecode;
 
-      this.$bvModal.hide('hideModal');
+      this.$refs.target.hide();
+      //this.$bvModal.hide('hideModal');
     },
 
     beforeBtn() {

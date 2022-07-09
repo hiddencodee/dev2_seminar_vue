@@ -3,11 +3,11 @@ const joinStore = {
   namespaced: true,
   state: { // 공통 관리되는 상태값을 관리,  접근방법- this.$store.state.items
     // 모듈화후 컴포넌트에서의 접근방법- this.$store.state.명시된store 모듈 이름.state값
-    position: [{
-      a: '매니저',
-      b: '팀장ㅋㅋㅋ',
-    }],
-    default: '직위선택',
+    position: [
+      { value: null, text: '직위선택' },
+      { value: 'a', text: '매니저' },
+      { value: 'a', text: '팀장' },
+    ],
   },
   getters: { // 공유되는 상태 값을 조회 로직을 관리, 접근방법 - this.$store.getters['경로명/함수명']
 

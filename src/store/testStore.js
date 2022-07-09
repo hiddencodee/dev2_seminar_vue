@@ -13,6 +13,9 @@ const testStore = {
     },
   },
   actions: { // 비동기 통신 및 동작을 정의하고 관리, 접근방법 - this.$store.dispatch('경로명/함수명')
+    addTardy(result) {
+      return result.commit('addTardy');
+    },
   },
 };
 

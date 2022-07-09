@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <HeaderView></HeaderView>
-    <router-view></router-view>
-    <FooterView></FooterView>
+    <HeaderView id="headerLayout" />
+    <router-view />
+    <FooterView id="footerLayout" />
   </div>
 </template>
 
@@ -27,6 +27,10 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+#footerLayout {
+  margin-top : 461px;
+}
+
 
 nav {
   padding: 30px;
