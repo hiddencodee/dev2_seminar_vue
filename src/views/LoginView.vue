@@ -2,58 +2,52 @@
   <div>
     <div class="login-page">
       <transition name="false">
-        <div v-if="!registerActive" class="wallpaper-login"></div>
+        <div class="wallpaper-login"></div>
       </transition>
       <div class="wallpaper-register"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
             <div
-              v-if="!registerActive"
               class="card login"
               v-bind:class="{
                 error: emptyFields,
               }"
             >
               <h1>Sign In</h1>
-              <form class="form-group" @submit="loginAction()">
-                <input
-                  v-model="emailLogin"
-                  type="email"
-                  class="form-control"
-                  placeholder="Enter email address"
-                  required
-                />
-                <input
-                  v-model="passwordLogin"
-                  type="password"
-                  class="form-control"
-                  placeholder="Enter password"
-                  required
-                />
-                <b-button
-                  type="submit"
-                  class="btn btn-primary"
-                  variant="primary"
-                  >Sign in</b-button
-                >
-                <!-- <input
+
+              <input
+                v-model="loginEmail"
+                name="loginEmail"
+                class="form-control"
+                placeholder="Enter email address"
+                required
+              />
+              <input
+                v-model="loginPassword"
+                name="loginPassword"
+                type="password"
+                class="form-control"
+                placeholder="Enter password"
+                required
+              />
+              <b-button
+                type="button"
+                class="btn btn-primary"
+                variant="primary"
+                @click="loginAction()"
+                >Sign in</b-button
+              >
+              <!-- <input
                   v-model="dd"
                   type="submit"
                   class="btn btn-primary"
                   @click="loginAction"
                 /> -->
-                <p>
-                  Don't have an account?
-                  <a
-                    href="#"
-                    @click="
-                      (registerActive = !registerActive), (emptyFields = false)
-                    "
-                    >Sign up here</a
-                  >
-                </p>
-              </form>
+              <p>
+                Don't have an account?
+                <router-link to="/register">Sign up here</router-link>
+              </p>
             </div>
           </div>
         </div>
@@ -63,23 +57,43 @@
 </template>
 <script>
 export default {
+  name: "loginView",
   data() {
     return {
-      registerActive: false,
-      emailLogin: "",
-      passwordLogin: "",
-      emailReg: "",
-      passwordReg: "",
+      loginEmail: "",
+      loginPassword: "",
       emptyFields: false,
+      mockAccount: {
+        loginEmail: "minah",
+        loginPassword: "minah",
+        loginName: "박민아",
+      },
     };
   },
-  method: {
+
+  methods: {
     loginAction() {
+      if (this.loginEmail != "" && this.loginPassword != "") {
+        if (
+          this.loginEmail == this.mockAccount.loginEmail &&
+          this.loginPassword == this.mockAccount.loginPassword
+        ) {
+          this.$emit("authenticated", true);
+
+          location.href = "/";
+        } else {
+          alert("이메일 주소와 비밀번호가 일치하지 않습니다.");
+        }
+      } else {
+        alert("이메일 주소와 비밀번호를 입력해주세요.");
+      }
+      /*
       if (this.emailLogin == "" || this.passwordLogin === "") {
         this.emptyFields = true;
       } else {
         alert("You are successfully logged in");
       }
+      */
     },
   },
 };

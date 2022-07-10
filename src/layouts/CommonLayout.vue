@@ -2,7 +2,7 @@
   <div>
     <nav class="header bg-warning">
       <div class="nav-right">
-        <p>박민아 님,</p>
+        <p>{{ loginName }}</p>
         <b-button
           pill
           variant="outline-danger"
@@ -10,6 +10,7 @@
           @click="signoutAction"
           >Sign out</b-button
         >
+        <!-- <router-view @authenticated="setAuthenticated" /> -->
       </div>
     </nav>
     <div class="content-wrap">
@@ -28,7 +29,24 @@
 <script>
 export default {
   name: "basicLayout",
+  data() {
+    return {
+      authenticated: false,
+    };
+  },
+  mounted() {
+    if (!this.authenticated) {
+      console.log("하하하");
+      // this.$router.replace({ name: "loginView" });
+    }
+  },
   methods: {
+    setAuthenticated(status) {
+      this.authenticated = status;
+    },
+    logout() {
+      this.authenticated = false;
+    },
     signoutAction() {
       // axios 로 처리 로그인화면으로 이동시켜
       if (confirm("로그아웃 하시겠습니까?")) {
