@@ -78,8 +78,6 @@
         </b-card-group>
       </div>
     </div>
-
-
   </div>
 </template>
 

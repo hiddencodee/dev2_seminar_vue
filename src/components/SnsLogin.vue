@@ -1,22 +1,20 @@
 <template>
   <div id="app">
-    <div class="snsLoginKakao">
-      <div id="aa">
-        <img
-          src="@/assets/kakaoSimbol.png"
-          alt=""
-          class="kakaoSimbol" />
-        <p id="kakaoText">
-        </p>
-      </div>
+    <div
+      class="snsLoginKakao"
+      @click="kakaoLoginBtn()">
+      <img
+        src="@/assets/kakaoSimbol.png"
+        alt=""
+        class="simbol" /> <span id="kakaoText"> 카카오로 시작하기 </span>
     </div>
-    <div class="snsLoginNaver">
+    <div
+      class="snsLoginNaver"
+      @click="naverLoginBtn()">
       <img
         src="@/assets/naverSimbol.png"
         alt=""
-        class="naverSimbol" />
-      <p id="naverText">
-      </p>
+        class="simbol" /> <span id="naverText"> 네이버로 시작하기 </span>
     </div>
 
     <input
@@ -34,6 +32,7 @@
     height: 50px;
     border-radius: 0.8em;
     background-color:#FEE500;
+    cursor:pointer;
   }
 
   .snsLoginNaver{
@@ -42,31 +41,18 @@
     height: 50px;
     border-radius: 0.8em;
     background-color:#03C75A;
+    cursor:pointer;
   }
 
-  #aa{
-    margin: 0 auto;
-    float: left;
-    width: 30px;
-    height: 30px;
-  }
-
-  .naverSimbol{
-    margin: 0 auto;
-    width: 30px;
-    height: 30px;
-  }
-
-  #kakaoText{
-    margin-left: 150px;
-    margin-top: 13px;
+  .simbol{
+    margin-top: 5px;
+    width: 48px;
+    height: 42px;
   }
 
   #naverText{
-    margin-left: 150px;
-    margin-top: 13px;
+    font: white;
   }
-
 
 </style>
 
@@ -83,11 +69,53 @@ export default {
     }
   },
 
+
   methods : {
     titleUpdate(e) {
       this.$emit('titleFromChild', e.target.value)
-    }
-  }
+    },
+
+    kakaoLoginBtn(){
+      console.log('카카오로그인클릭');
+
+      window.Kakao.init('a8e4192de4262f4ae51ee05cf9378bba');
+
+
+      if (window.Kakao.Auth.getAccessToken()) {
+        window.Kakao.API.request({
+          url: '/v1/user/unlink',
+          success: function (response) {
+            console.log(response)
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+        window.Kakao.Auth.setAccessToken(undefined)
+      }
+
+      window.Kakao.Auth.login({
+        success: function () {
+          window.Kakao.API.request({
+            url: '/v2/user/me',
+            data: {
+              property_keys: ["kakao_account.email"]
+            },
+            success: async function (response) {
+              console.log(response);
+            },
+            fail: function (error) {
+              console.log(error)
+            },
+          })
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+
+    },
+  },
 };
 
 </script>

@@ -38,9 +38,10 @@
         </form>
       </div>
 
-      <SnsLogin :title = "title" @titleFromChild="titleChange"/>
+      <SnsLogin
+        :title="title"
+        @titleFromChild="titleChange" />
       {{ title }}
-
     </div>
   </div>
 </template>
@@ -73,6 +74,15 @@
 import SnsLogin from '../components/SnsLogin.vue';
 
 export default {
+
+  created(){
+    const script = document.createElement('script');
+    script.src = '//developers.kakao.com/sdk/js/kakao.js';
+    document.head.appendChild(script);
+
+  },
+
+
   data() {
     return {
       title : ""
@@ -81,7 +91,7 @@ export default {
   methods: {
     move() {
       alert('로그인이 완료되었습니다.');
-      this.$router.push('/');
+      this.$router.push('/main');
     },
     titleChange(title) {
       this.title = title

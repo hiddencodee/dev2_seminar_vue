@@ -57,15 +57,9 @@
               type="text" />
           </b-col>
           <b-col sm="2">
-            <b-button @click="modalShow = !modalShow">
+            <b-button @click="addrSearch()">
               주소검색
             </b-button>
-            <b-modal
-              id="hideModal"
-              v-model="modalShow"
-              ref="target">
-              <DaumPostcode :on-complete="oncomplete" />
-            </b-modal>
           </b-col>
         </b-row>
         <b-row class="my-1">
@@ -150,7 +144,6 @@
 </style>
 
 <script>
-import DaumPostcode from 'vuejs-daum-postcode';
 
 export default {
 
@@ -173,30 +166,44 @@ export default {
 
     };
   },
+
+  //created, mounted
+  mounted(){
+    const script = document.createElement('script');    //script 변수 선언해서 <scrpit /> 얘를 만들어가지고 담는다
+    script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';   //script의 src속성에 카카오에서 제공한 주소값을 넣어준다
+    document.head.appendChild(script);    //head에 src 속성까지 만들어진 script소스를 append한다
+  },
+
   methods: {
-    oncomplete(data) {
-      if (data.userSelectedType === 'R') {
-        // 사용자가 도로명 주소를 선택했을 경우
-        this.addr = data.roadAddress;
-      } else {
-        // 사용자가 지번 주소를 선택했을 경우(J)
-        this.addr = data.jibunAddress;
-      }
-
-      // 우편번호를 입력한다.
-      this.zip = data.zonecode;
-
-      this.$refs.target.hide();
-      //this.$bvModal.hide('hideModal');
-    },
 
     beforeBtn() {
       this.$router.push('/login');
     },
 
+    addrSearch(){
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          if (this.extraAddress !== '') {
+            this.extraAddress = '';
+          }
+          if (data.userSelectedType === 'R') {
+            // 사용자가 도로명 주소를 선택했을 경우
+            this.addr = data.roadAddress;
+          } else {
+            // 사용자가 지번 주소를 선택했을 경우(J)
+            this.addr = data.jibunAddress;
+          }
+
+          // 우편번호를 입력한다.
+          this.zip = data.zonecode;
+        },
+      }).open();
+
+    },
+
   },
   components: {
-    DaumPostcode,
+
   },
 };
 

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import Login from '../views/LoginView.vue';
 import Join from '../views/JoinView.vue';
+import GroupList from '../views/GroupListView.vue';
 
 // Vue와 VueRouter 연결
 Vue.use(VueRouter);
@@ -10,18 +11,23 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
-  },
-  {
-    path: '/login',
     name: 'login',
     component: Login,
+  },
+  {
+    path: '/main',
+    name: 'home',
+    component: HomeView,
   },
   {
     path: '/join',
     name: 'join',
     component: Join,
+  },
+  {
+    path: '/groupList',
+    name: 'groupList',
+    component: GroupList,
   },
 ];
 

@@ -15,7 +15,7 @@
           </li>
           <li class="nav-item">
             <router-link
-              to="/headerView"
+              to="/groupList"
               class="nav-link">
               <i class="bi bi-person-fill"></i> 조직관리
             </router-link>
