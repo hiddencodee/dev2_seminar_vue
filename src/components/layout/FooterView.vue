@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div
-      class="text-center p-3"
+      class="footer text-center p-3"
       style="background-color: lightseagreen">
       © 2022 Copyright:
       <a
@@ -16,5 +16,8 @@
 </script>
 
 <style>
-
+  .footer{
+    position: fixed;
+    width: 100%;
+  }
 </style>

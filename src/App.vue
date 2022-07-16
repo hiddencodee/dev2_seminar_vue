@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderView id="headerLayout" />
-    <router-view />
+    <router-view style="height:800px;" />
     <FooterView id="footerLayout" />
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
   color: #2c3e50;
 }
 #footerLayout {
-  margin-top : 461px;
+
 }
 
 

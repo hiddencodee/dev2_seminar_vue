@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue';
 import Login from '../views/LoginView.vue';
 import Join from '../views/JoinView.vue';
 import GroupList from '../views/GroupListView.vue';
+import GroupRegister from '../views/GroupRegisterView.vue';
 
 // Vue와 VueRouter 연결
 Vue.use(VueRouter);
@@ -28,6 +29,11 @@ const routes = [
     path: '/groupList',
     name: 'groupList',
     component: GroupList,
+  },
+  {
+    path: '/groupRegister',
+    name: 'groupRegister',
+    component: GroupRegister,
   },
 ];
 

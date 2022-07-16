@@ -21,7 +21,6 @@
       type="text"
       :value="title"
       @input="titleUpdate" />
-    <button>전송!!</button>
   </div>
 </template>
 
