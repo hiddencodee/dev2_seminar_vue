@@ -2,8 +2,8 @@
   <div>
     <nav class="header bg-warning">
       <div class="nav-right">
-        <p>{{ getName }}</p>
-        <button @click="onChangeUserName">testButton</button>
+        <p>{{ userName }}</p>
+        <p>{{ loginStatus }}</p>
         <!-- <input type="hidden" value="{{content.email}}" /> -->
         <b-button
           pill
@@ -35,8 +35,11 @@ export default {
     return {
       authenticated: false,
       content: "",
+      userName: this.$store.state.LoginObj.name,
+      loginStatus: this.$store.state.loginStatus,
     };
   },
+
   computed: {
     getUserName() {
       return this.$store.getters.getName;

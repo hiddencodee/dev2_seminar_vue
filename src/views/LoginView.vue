@@ -57,6 +57,9 @@ export default {
     return {
       loginEmail: null,
       loginPw: null,
+      userEmail: "minah",
+      userPw: "minahPw",
+      userName: "박민아",
     };
   },
   computed: {
@@ -66,10 +69,14 @@ export default {
   },
   methods: {
     loginAction() {
-      this.$store.commit("updateLoginStatus", {
-        loginEmail: this.loginEmail,
-        loginPw: this.loginPw,
-      });
+      if (this.loginEmail == this.userEmail && this.loginPw == this.userPw) {
+        console.log("로그인성공");
+        this.$router.push("/");
+        this.$store.commit("updateLoginStatus", {
+          loginEmail: this.loginEmail,
+          loginName: this.userName,
+        });
+      }
     },
   },
 };

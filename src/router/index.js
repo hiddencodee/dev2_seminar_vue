@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store/index";
 import DashboardView from "../views/DashboardView.vue";
 import ProjectListView from "../views/ProjectListView.vue";
 import ProjectRegisterView from "../views/ProjectRegisterView.vue";
@@ -7,6 +8,14 @@ import BasicLayout from "@/layouts/CommonLayout.vue";
 import MemberRegisterView from "../views/MemberRegisterView.vue";
 
 Vue.use(VueRouter);
+
+const requireLogin = () => (to, from, next) => {
+  console.log(store.state.loginStatus);
+  if (!store.state.loginStatus) {
+    return next();
+  }
+  next("/login");
+};
 
 const routes = [
   {
@@ -26,6 +35,7 @@ const routes = [
         component: ProjectRegisterView,
       },
     ],
+    beforeEnter: requireLogin(),
   },
   {
     path: "/login",
