@@ -71,10 +71,10 @@
 </template>
 
 <script>
-import registerObj from "../models/registerObj";
+import user from "../modules/registerObj";
 
 export default {
-  name: "registerView",
+  name: "MemberRegisterView",
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
@@ -82,14 +82,10 @@ export default {
   },
   data() {
     return {
-      FormData: new registerObj("", "", ""),
-      valid: false,
-      nameRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 10) || "NAme must be less than 10 characters",
-      ],
-      isError: false,
-      errorMsg: "",
+      user: new user("", "", ""),
+      submitted: false,
+      successful: false,
+      message: "",
     };
   },
   mounted() {
@@ -101,6 +97,7 @@ export default {
     handleRegister() {
       this.message = "";
       this.submitted = true;
+
       this.$validator.validate().then((valid) => {
         if (valid) {
           this.$store

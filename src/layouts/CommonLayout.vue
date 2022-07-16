@@ -2,7 +2,9 @@
   <div>
     <nav class="header bg-warning">
       <div class="nav-right">
-        <p>{{ loginName }}</p>
+        <p>{{ getName }}</p>
+        <button @click="onChangeUserName">testButton</button>
+        <!-- <input type="hidden" value="{{content.email}}" /> -->
         <b-button
           pill
           variant="outline-danger"
@@ -32,21 +34,20 @@ export default {
   data() {
     return {
       authenticated: false,
+      content: "",
     };
   },
-  mounted() {
-    if (!this.authenticated) {
-      console.log("하하하");
-      // this.$router.replace({ name: "loginView" });
-    }
+  computed: {
+    getUserName() {
+      return this.$store.getters.getName;
+    },
   },
+
   methods: {
-    setAuthenticated(status) {
-      this.authenticated = status;
+    onChangeUserName() {
+      this.$store.dispatch("callMutation", { newUserName: "홍명석!!" });
     },
-    logout() {
-      this.authenticated = false;
-    },
+
     signoutAction() {
       // axios 로 처리 로그인화면으로 이동시켜
       if (confirm("로그아웃 하시겠습니까?")) {

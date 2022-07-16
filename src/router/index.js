@@ -4,7 +4,7 @@ import DashboardView from "../views/DashboardView.vue";
 import ProjectListView from "../views/ProjectListView.vue";
 import ProjectRegisterView from "../views/ProjectRegisterView.vue";
 import BasicLayout from "@/layouts/CommonLayout.vue";
-import RegisterView from "../views/MemberRegister.vue";
+import MemberRegisterView from "../views/MemberRegisterView.vue";
 
 Vue.use(VueRouter);
 
@@ -34,7 +34,7 @@ const routes = [
   },
   {
     path: "/register",
-    component: RegisterView,
+    component: MemberRegisterView,
   },
 ];
 

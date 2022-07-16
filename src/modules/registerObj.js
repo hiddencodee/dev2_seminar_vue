@@ -1,7 +1,7 @@
 export default class RegisterObj {
-  constructor(email, password, name) {
+  constructor(email, password, username) {
     this.email = email;
     this.password = password;
-    this.name = name;
+    this.username = username;
   }
 }

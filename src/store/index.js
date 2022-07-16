@@ -1,42 +1,28 @@
+//import router from "@/router";
+
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userInfo: null,
-    isLogin: false,
+    userEmail: "minah",
+    userPw: "minahPw",
+    userName: "박민아",
+    loginStatus: false,
   },
-  getters: {},
   mutations: {
-    loginSuccess(state, payload) {
-      state.isLogin = true;
-      state.userInfo = payload;
-    },
-    logout(state) {
-      state.isLogin = false;
-      state.userInfo = null;
-      localStorage.removeItem("access_token");
-    },
-  },
-  actions: {
-    getAccountInfo({ commit }) {
-      let token = localStorage.getItem("access_token");
-      axios
-        .get("/userinfo", {
-          headers: {
-            "X-AUTH-TOKEN": token,
-          },
-        })
-        .then((response) => {
-          commit("loginSuccess", response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    updateLoginStatus(state, { loginEmail, loginPw }) {
+      console.log(loginEmail, loginPw);
+      if (loginEmail == state.userEmail && loginPw == state.userPw) {
+        state.loginStatus = true;
+        console.log(state.userName);
+        // 성공하면 메인화면으로 보내고 이름과 함께 보내기
+      } else {
+        state.loginStatus = false;
+        console.log("로그인 실패");
+      }
     },
   },
-  modules: {},
 });

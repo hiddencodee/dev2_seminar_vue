@@ -8,24 +8,18 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-            <div
-              class="card login"
-              v-bind:class="{
-                error: emptyFields,
-              }"
-            >
+            <!-- <form name="form" @submit.prevent="loginAction()"> -->
+            <div class="card login">
               <h1>Sign In</h1>
 
               <input
                 v-model="loginEmail"
-                name="loginEmail"
                 class="form-control"
                 placeholder="Enter email address"
                 required
               />
               <input
-                v-model="loginPassword"
-                name="loginPassword"
+                v-model="loginPw"
                 type="password"
                 class="form-control"
                 placeholder="Enter password"
@@ -35,7 +29,7 @@
                 type="button"
                 class="btn btn-primary"
                 variant="primary"
-                @click="loginAction()"
+                @click="loginAction"
                 >Sign in</b-button
               >
               <!-- <input
@@ -49,6 +43,7 @@
                 <router-link to="/register">Sign up here</router-link>
               </p>
             </div>
+            <!-- </form> -->
           </div>
         </div>
       </div>
@@ -60,40 +55,21 @@ export default {
   name: "loginView",
   data() {
     return {
-      loginEmail: "",
-      loginPassword: "",
-      emptyFields: false,
-      mockAccount: {
-        loginEmail: "minah",
-        loginPassword: "minah",
-        loginName: "박민아",
-      },
+      loginEmail: null,
+      loginPw: null,
     };
   },
-
+  computed: {
+    loginStatus() {
+      return this.$store.state.loginStatus;
+    },
+  },
   methods: {
     loginAction() {
-      if (this.loginEmail != "" && this.loginPassword != "") {
-        if (
-          this.loginEmail == this.mockAccount.loginEmail &&
-          this.loginPassword == this.mockAccount.loginPassword
-        ) {
-          this.$emit("authenticated", true);
-
-          location.href = "/";
-        } else {
-          alert("이메일 주소와 비밀번호가 일치하지 않습니다.");
-        }
-      } else {
-        alert("이메일 주소와 비밀번호를 입력해주세요.");
-      }
-      /*
-      if (this.emailLogin == "" || this.passwordLogin === "") {
-        this.emptyFields = true;
-      } else {
-        alert("You are successfully logged in");
-      }
-      */
+      this.$store.commit("updateLoginStatus", {
+        loginEmail: this.loginEmail,
+        loginPw: this.loginPw,
+      });
     },
   },
 };
