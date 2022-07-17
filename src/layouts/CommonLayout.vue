@@ -36,14 +36,14 @@ export default {
     return {
       authenticated: false,
       content: "",
-      loginName: this.$store.state.loginName,
-      loginStatus: this.$store.state.loginStatus,
+      // loginName: localStorage.getItem("name"),
+      loginStatus: localStorage.getItem("loginStatus"),
     };
   },
 
   computed: {
-    getUserName() {
-      return this.$store.getters.getName;
+    loginName() {
+      return localStorage.getItem("userName");
     },
   },
 
