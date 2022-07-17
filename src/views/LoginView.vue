@@ -70,12 +70,19 @@ export default {
   methods: {
     loginAction() {
       if (this.loginEmail == this.userEmail && this.loginPw == this.userPw) {
-        console.log("로그인성공");
         this.$router.push("/");
+        this.$store.dispatch("setLoginAction", {
+          loginEmail: this.loginEmail,
+          loginName: this.userName,
+        });
+        /*
         this.$store.commit("updateLoginStatus", {
           loginEmail: this.loginEmail,
           loginName: this.userName,
         });
+        */
+      } else {
+        alert("이메일 주소와 비밀번호를 다시 확인해주세요.");
       }
     },
   },

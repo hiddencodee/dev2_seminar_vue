@@ -10,7 +10,7 @@ import MemberRegisterView from "../views/MemberRegisterView.vue";
 Vue.use(VueRouter);
 
 const requireLogin = () => (to, from, next) => {
-  console.log(store.state.loginStatus);
+  console.log(store.state);
   if (!store.state.loginStatus) {
     return next();
   }

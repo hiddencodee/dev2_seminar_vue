@@ -2,8 +2,9 @@
   <div>
     <nav class="header bg-warning">
       <div class="nav-right">
-        <p>{{ userName }}</p>
-        <p>{{ loginStatus }}</p>
+        <p>{{ loginName }}</p>
+        님
+
         <!-- <input type="hidden" value="{{content.email}}" /> -->
         <b-button
           pill
@@ -35,7 +36,7 @@ export default {
     return {
       authenticated: false,
       content: "",
-      userName: this.$store.state.LoginObj.name,
+      loginName: this.$store.state.loginName,
       loginStatus: this.$store.state.loginStatus,
     };
   },
@@ -47,13 +48,10 @@ export default {
   },
 
   methods: {
-    onChangeUserName() {
-      this.$store.dispatch("callMutation", { newUserName: "홍명석!!" });
-    },
-
     signoutAction() {
       // axios 로 처리 로그인화면으로 이동시켜
       if (confirm("로그아웃 하시겠습니까?")) {
+        this.$store.dispatch("logoutAction");
         location.href = "/login";
       }
     },
