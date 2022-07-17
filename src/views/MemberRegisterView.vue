@@ -77,7 +77,7 @@ export default {
   name: "MemberRegisterView",
   computed: {
     loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
+      return localStorage.getItem("isLogin");
     },
   },
   data() {
@@ -89,7 +89,8 @@ export default {
     };
   },
   mounted() {
-    if (this.loggedIn) {
+    // 로그인 정보가 있으면 메인화면으로 보내기
+    if (this.loggedIn == true) {
       this.$router.push("/");
     }
   },

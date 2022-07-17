@@ -1,20 +1,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "../store/index";
 import DashboardView from "../views/DashboardView.vue";
 import ProjectListView from "../views/ProjectListView.vue";
 import ProjectRegisterView from "../views/ProjectRegisterView.vue";
 import BasicLayout from "@/layouts/CommonLayout.vue";
 import MemberRegisterView from "../views/MemberRegisterView.vue";
+import LoginView from "../views/LoginView.vue";
 
 Vue.use(VueRouter);
 
 const requireLogin = () => (to, from, next) => {
-  console.log(store.state);
-  if (!store.state.loginStatus) {
+  if (from.fullPath != "/login") {
+    if (localStorage.getItem("isLogin") == true) {
+      return next();
+    } else {
+      next("/login");
+    }
+  } else {
     return next();
   }
-  next("/login");
 };
 
 const routes = [
@@ -40,7 +44,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../views/LoginView.vue"),
+    component: LoginView,
   },
   {
     path: "/register",

@@ -2,8 +2,8 @@
   <div>
     <vue-good-table
       theme="polar-bear"
-      :columns="columns"
-      :rows="rows"
+      :columns="columnInfo"
+      :rows="rowsInfo"
       :line-numbers="true"
       :select-options="{
         enabled: true,
@@ -24,6 +24,14 @@ import "vue-good-table/dist/vue-good-table.css";
 import { VueGoodTable } from "vue-good-table";
 export default {
   name: "my-component",
+  props: {
+    columnInfo: {
+      type: Array,
+    },
+    rowsInfo: {
+      type: Array,
+    },
+  },
   methods: {
     deleteAction() {
       alert("삭제하시겠습니까?");
@@ -31,14 +39,16 @@ export default {
   },
   data() {
     return {
+      /*
       columns: [
         {
-          label: "Name",
-          field: "name",
+          label: "번호",
+          field: "no",
+          type: "number",
         },
         {
-          label: "Age",
-          field: "age",
+          label: "프로젝트명",
+          field: "projectName",
           type: "number",
         },
         {
@@ -92,6 +102,7 @@ export default {
           score: 0.03343,
         },
       ],
+    */
     };
   },
   components: {
