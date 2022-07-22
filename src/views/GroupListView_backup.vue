@@ -44,10 +44,25 @@
         id="">
         부서장으로 권한 변경
       </b-button>
-      <TableComponent
-        :fields="fields"
+      <b-table
         :items="items"
-        :select-mode="selectMode" />
+        :fields="fields"
+        responsive="sm"
+        ref="selectableTable"
+        selectable
+        @row-selected="onRowSelected">
+        <!-- Example scoped slot for select state illustrative purposes -->
+        <template #cell(selected)="{ rowSelected }">
+          <template v-if="rowSelected">
+            <span aria-hidden="true">&check;</span>
+            <span class="sr-only">Selected</span>
+          </template>
+          <template v-else>
+            <span aria-hidden="true">&nbsp;</span>
+            <span class="sr-only">Not selected</span>
+          </template>
+        </template>
+      </b-table>
     </div>
   </div>
 </template>
@@ -66,7 +81,6 @@
 </style>
 
 <script>
-import TableComponent from '../components/TableComponent.vue';
 
  export default {
     data() {
@@ -78,11 +92,13 @@ import TableComponent from '../components/TableComponent.vue';
           { 이름: '박민아', 부서: '개발2팀', 직위: '매니저', 가입등록일시: '2022-07-10', 권한: '사원'}
         ],
         selectMode: '부서선택',
+        selected: []
       }
     },
-
-    components: {
-      TableComponent
+    methods: {
+      onRowSelected(items) {
+        this.selected = items
+      },
     }
   }
 

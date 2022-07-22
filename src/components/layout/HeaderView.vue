@@ -22,7 +22,7 @@
           </li>
           <li class="nav-item">
             <router-link
-              to="/headerView2"
+              to="/attendanceList"
               class="nav-link">
               <i class="bi bi-calendar-check"></i> 근태관리
             </router-link>

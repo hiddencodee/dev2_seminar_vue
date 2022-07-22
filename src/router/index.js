@@ -5,6 +5,9 @@ import Login from '../views/LoginView.vue';
 import Join from '../views/JoinView.vue';
 import GroupList from '../views/GroupListView.vue';
 import GroupRegister from '../views/GroupRegisterView.vue';
+import EventBusTestA from '../views/EventBusTestA.vue';
+import EventBusTestB from '../views/EventBusTestB.vue';
+import AttendanceList from '../views/AttendanceListView.vue';
 
 // Vue와 VueRouter 연결
 Vue.use(VueRouter);
@@ -35,6 +38,21 @@ const routes = [
     name: 'groupRegister',
     component: GroupRegister,
   },
+  {
+    path: '/testa',
+    name: 'testa',
+    component: EventBusTestA,
+  },
+  {
+    path: '/testb',
+    name: 'testb',
+    component: EventBusTestB,
+  },
+  {
+    path: '/attendanceList',
+    name: 'attendanceList',
+    component: AttendanceList,
+  }
 ];
 
 // VueRouter에 route를 등록하고 설정한다.

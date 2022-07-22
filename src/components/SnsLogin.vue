@@ -16,7 +16,9 @@
         alt=""
         class="simbol" /> <span id="naverText"> 네이버로 시작하기 </span>
     </div>
-
+    <b-button @click="kakaoLogout()">
+      카카오 로그아웃
+    </b-button> <p></p>
     <input
       type="text"
       :value="title"
@@ -76,23 +78,11 @@ export default {
 
     kakaoLoginBtn(){
       console.log('카카오로그인클릭');
-
+      console.log("초기화됐는지1 > " + window.Kakao.isInitialized())
       window.Kakao.init('a8e4192de4262f4ae51ee05cf9378bba');
+      console.log("초기화됐는지2 > " + window.Kakao.isInitialized())
 
-
-      if (window.Kakao.Auth.getAccessToken()) {
-        window.Kakao.API.request({
-          url: '/v1/user/unlink',
-          success: function (response) {
-            console.log(response)
-          },
-          fail: function (error) {
-            console.log(error)
-          },
-        })
-        window.Kakao.Auth.setAccessToken(undefined)
-      }
-
+      //로그인
       window.Kakao.Auth.login({
         success: function () {
           window.Kakao.API.request({
@@ -101,19 +91,38 @@ export default {
               property_keys: ["kakao_account.email"]
             },
             success: async function (response) {
-              console.log(response);
+              console.log("로그인 성공: " + response);
             },
             fail: function (error) {
-              console.log(error)
+              console.log("로그인 실패: " + error)
             },
           })
         },
         fail: function (error) {
-          console.log(error)
+          console.log("최초 로그인 실패: " + error)
         },
       })
-
     },
+    kakaoLogout(){
+        //로그아웃
+        if (window.Kakao.Auth.getAccessToken()) {
+          console.log("카카오 인증 액세스 토큰이 존재합니다 ::: " + window.Kakao.Auth.getAccessToken())
+          window.Kakao.API.request({
+            url: '/v1/user/unlink',
+            success: function (response) {
+              console.log("로그아웃 성공: " + response)
+            },
+            fail: function (error) {
+              console.log("로그아웃 실패: " + error)
+            },
+          })
+          //로그아웃 후 토큰삭제
+          window.Kakao.Auth.setAccessToken(undefined)
+        }
+      }
+
+
+
   },
 };
 

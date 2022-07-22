@@ -2,17 +2,10 @@
   <div>
     <div
       style="margin-bottom : 30px; margin-top : 30px;">
-      <span style="font-size : xx-large;">조직목록</span>
+      <span style="font-size : xx-large;">근태목록</span>
     </div>
     <router-view />
     <div class="groupTable">
-      <b-form-select
-        id="table-select-mode-select"
-        v-model="selectMode"
-        :options="modes"
-        class="mb-3"
-        style="width: 400px" />
-
       <router-link
         to="/groupRegister"
         class="nav-link"
@@ -30,19 +23,6 @@
         class="rightBtn"
         id="">
         수정
-      </b-button>
-      <b-button
-        pill
-        class="rightBtn"
-        id="">
-        삭제
-      </b-button>
-      <b-button
-        pill
-        variant="info"
-        class="rightBtn"
-        id="">
-        부서장으로 권한 변경
       </b-button>
       <TableComponent
         :fields="fields"
@@ -71,19 +51,17 @@ import TableComponent from '../components/TableComponent.vue';
  export default {
     data() {
       return {
-        modes: ['부서선택','개발1팀', '개발2팀', '디자인기획팀'],
-        fields: ['이름', '부서', '직위', '가입등록일시', '권한'],
+        fields: ['이름', '부서', '직위', '종류', '등록일시', '승인일시', '승인상태'],
         items: [
-          { 이름: '김지아', 부서: '개발2팀', 직위: '매니저', 가입등록일시: '2022-07-10', 권한: '사원'},
-          { 이름: '박민아', 부서: '개발2팀', 직위: '매니저', 가입등록일시: '2022-07-10', 권한: '사원'}
+          { 이름: '김지아', 부서: '개발2팀', 직위: '매니저', 종류: '연차', 등록일시: '2022-07-10', 승인일시: '-', 승인상태: '대기'},
         ],
-        selectMode: '부서선택',
+        selectMode: '부서선택'
       }
     },
 
     components: {
       TableComponent
-    }
+    },
   }
 
 </script>

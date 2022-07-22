@@ -2,65 +2,71 @@
 <template>
   <div id="container">
     조 직 등 록
-    <div id="login">
-      <b-container fluid>
-        <b-row class="my-1">
-          <b-col sm="4">
-            일시
-          </b-col>
-          <b-col sm="3">
-            <b-form-input
-              v-model="zip"
-              type="text"
-              placeholder="날짜선택"
-              disabled />
-          </b-col> ~
-          <b-col sm="3">
-            <b-form-input
-              v-model="zip"
-              type="text"
-              placeholder="날짜선택"
-              disabled />
-          </b-col>
-        </b-row>
-        <b-row class="my-1">
-          <b-col sm="4">
-            메모
-          </b-col>
-          <b-col sm="8">
-            <b-form-input
-              v-model="daddr"
-              type="text" />
-          </b-col>
-        </b-row>
+    <form @submit.prevent="submitForm">
+      <div id="login">
+        <b-container fluid>
+          <b-row class="my-1">
+            <b-col sm="4">
+              일시
+            </b-col>
+            <b-col sm="3">
+              <b-form-input
+                v-model="stDate"
+                type="date"
+                placeholder="날짜선택" />
+            </b-col> ~
+            <b-col sm="3">
+              <b-form-input
+                v-model="enDate"
+                type="date"
+                placeholder="날짜선택" />
+            </b-col>
+          </b-row>
+          <b-row class="my-1">
+            <b-col sm="4">
+              메모
+            </b-col>
+            <b-col sm="8">
+              <b-form-input
+                v-model="memo"
+                type="text" />
+            </b-col>
+          </b-row>
 
-        <b-row class="my-1">
-          <b-col sm="4">
-            근태종류
-          </b-col>
-          <b-col sm="8">
-            <b-form-select
-              v-model="depart"
-              :options="departs" />
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
+          <b-row class="my-1">
+            <b-col sm="4">
+              근태종류
+            </b-col>
+            <b-col sm="8">
+              <b-form-select
+                v-model="rmsxo"
+                :options="rmsxos" />
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
 
-    <b-button
-      block
-      variant="success"
-      id="beforeBtn"
-      @click="beforeBtn()">
-      이전
-    </b-button>
-    <b-button
-      block
-      variant="success"
-      id="joinBtn"
-      @click="move()">
-      근태신청
-    </b-button>
+      <b-button
+        block
+        variant="success"
+        id="beforeBtn"
+        @click="beforeBtn()">
+        이전
+      </b-button>
+      <b-button
+        block
+        variant="success"
+        type="submit"
+        id="joinBtn">
+        근태신청 axios
+      </b-button>
+      <b-button
+        block
+        @click="submitBt()"
+        variant="danger">
+        근태신청 router
+      </b-button>
+    </form>
   </div>
 </template>
 
@@ -95,25 +101,22 @@
 </style>
 
 <script>
+import axios from 'axios'
 
 export default {
 
   data() {
     return {
-      modalShow: false,
-      msg: '회 원 가 입',
-      zip: '',
-      addr: '',
-      daddr: '',
-      position: null,
-      depart: null,
-      departs: [
-        { value: null, text: '근태종류' },
-        { value: 'a', text: '연차' },
-        { value: 'b', text: '휴가' },
-        { value: 'c', text: '병가' },
-        { value: 'd', text: '기타' },
+      stDate: '',
+      enDate: '',
+      rmsxos: [
+        { value: null, text: '근태종류 선택' },
+        { value: 'a연차', text: '연차' },
+        { value: 'b휴가', text: '휴가' },
+        { value: 'c병가', text: '병가' },
+        { value: 'd기타', text: '기타' },
       ],
+      rmsxo: null,
 
     };
   },
@@ -128,29 +131,25 @@ export default {
   methods: {
 
     beforeBtn() {
-      this.$router.push('/login');
+      this.$router.push('/groupList');
     },
 
-    addrSearch(){
-      new window.daum.Postcode({
-        oncomplete: (data) => {
-          if (this.extraAddress !== '') {
-            this.extraAddress = '';
-          }
-          if (data.userSelectedType === 'R') {
-            // 사용자가 도로명 주소를 선택했을 경우
-            this.addr = data.roadAddress;
-          } else {
-            // 사용자가 지번 주소를 선택했을 경우(J)
-            this.addr = data.jibunAddress;
-          }
-
-          // 우편번호를 입력한다.
-          this.zip = data.zonecode;
-        },
-      }).open();
-
+    submitForm: function() {
+      axios.post('http://localhost:8080/groupRegister/save', {
+        memo : this.memo
+        ,sort : this.rmsxo
+      })
+      .then(function (response) {
+        console.log("성공" + response);
+      })
+      .catch(function (error) {
+        console.log("당연실패 :::: " + error);
+      });
     },
+
+    submitBt(){
+       this.$router.push({name: 'param', param: {memo: this.memo, sort: this.rmsxo}})
+    }
 
   },
   components: {
