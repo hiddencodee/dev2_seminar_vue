@@ -3,6 +3,7 @@
     <div
       style="margin-bottom : 30px; margin-top : 30px;">
       <span style="font-size : xx-large;">조직목록</span>
+      {{ contentlist }}
     </div>
     <router-view />
     <div class="groupTable">
@@ -67,6 +68,7 @@
 
 <script>
 import TableComponent from '../components/TableComponent.vue';
+import axios from 'axios'
 
  export default {
     data() {
@@ -78,12 +80,25 @@ import TableComponent from '../components/TableComponent.vue';
           { 이름: '박민아', 부서: '개발2팀', 직위: '매니저', 가입등록일시: '2022-07-10', 권한: '사원'}
         ],
         selectMode: '부서선택',
+        contentlist: []
       }
+    },
+
+    //mounted는 페이지가 켜질때 실행됨
+    mounted() {
+
+      axios.get('/api/memberList')
+            .then((response) => {
+                console.warn(response);
+                this.result = response.data
+            })
+
     },
 
     components: {
       TableComponent
     }
+
   }
 
 </script>
