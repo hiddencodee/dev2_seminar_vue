@@ -3,51 +3,60 @@ import VueRouter from "vue-router";
 import DashboardView from "../views/DashboardView.vue";
 import ProjectListView from "../views/ProjectListView.vue";
 import ProjectRegisterView from "../views/ProjectRegisterView.vue";
+import IssueListView from "../views/IssueListView";
+import IssueRegisterView from "../views/IssueRegisterView";
 import BasicLayout from "@/layouts/CommonLayout.vue";
 import MemberRegisterView from "../views/MemberRegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 
 Vue.use(VueRouter);
-
+/*
 const requireLogin = () => (to, from, next) => {
-  if (from.fullPath != "/login") {
-    if (localStorage.getItem("isLogin") == true) {
-      return next();
-    } else {
-      next("/login");
-    }
-  } else {
+  if (localStorage.getItem("isLogin") == true) {
     return next();
+  } else {
+    next("/");
   }
-};
 
+};
+*/
 const routes = [
   {
-    path: "/",
+    path: "/user",
     component: BasicLayout,
     children: [
       {
-        path: "/",
+        path: "/user/main",
         component: DashboardView,
       },
       {
-        path: "projects",
+        path: "/user/projects",
         component: ProjectListView,
       },
       {
-        path: "projects/register",
+        path: "/user/projects/register",
         component: ProjectRegisterView,
       },
+      {
+        path: "/user/issues",
+        component: IssueListView,
+      },
+      {
+        path: "/user/issues/register",
+        component: IssueRegisterView,
+      },
     ],
+    /*
     beforeEnter: requireLogin(),
+    */
   },
   {
-    path: "/login",
+    path: "/",
     name: "login",
     component: LoginView,
   },
   {
-    path: "/register",
+    path: "/signup",
     component: MemberRegisterView,
   },
 ];

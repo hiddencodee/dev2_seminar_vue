@@ -1,70 +1,75 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
-      <form name="form" @submit.prevent="handleRegister">
-        <div v-if="!successful">
-          <div class="form-group">
-            <label for="username">이름</label>
-            <input
-              type="text"
-              class="form-control"
-              name="username"
-              v-model="user.username"
-              v-validate="'required|min:3|max:20'"
-            />
-            <div
-              class="alert-danger"
-              v-if="submitted && errors.has('username')"
-            >
-              {{ errors.first("username") }}
-            </div>
+  <div>
+    <div class="login-page">
+      <div class="wallpaper-register"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+            <form
+              name="form"
+              @submit.prevent="handleRegister">
+              <div class="card login">
+                <h1>Sign Up</h1>
+                <div v-if="!successful">
+                  <div class="form-group">
+                    <label for="username">이름</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="username"
+                      v-model="user.username"
+                      v-validate="'required|min:3|max:20'" />
+                    <!-- <div
+                      class="alert-danger"
+                      v-if="submitted && errors.has('username')">
+                      {{ errors.first("username") }}
+                    </div> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      v-model="user.email"
+                      v-validate="'required|email|max:50'" />
+                    <!-- <div
+                      class="alert-danger"
+                      v-if="submitted && errors.has('email')">
+                      {{ errors.first("email") }}
+                    </div> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      v-model="user.password"
+                      v-validate="'required|min:6|max:40'" />
+                    <!-- <div
+                      class="alert-danger"
+                      v-if="submitted && errors.has('password')">
+                      {{ errors.first("password") }}
+                    </div> -->
+                  </div>
+                  <b-button
+                    type="button"
+                    class="btn btn-primary"
+                    variant="primary">
+                    Sign Up
+                  </b-button>
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              name="email"
-              v-model="user.email"
-              v-validate="'required|email|max:50'"
-            />
-            <div class="alert-danger" v-if="submitted && errors.has('email')">
-              {{ errors.first("email") }}
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              v-model="user.password"
-              v-validate="'required|min:6|max:40'"
-            />
-            <div
-              class="alert-danger"
-              v-if="submitted && errors.has('password')"
-            >
-              {{ errors.first("password") }}
-            </div>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary btn-block">Sign Up</button>
-          </div>
+          <!-- <div
+            class="alert"
+            :class="successful ? 'alert-success' : 'alert-danger'"
+            v-if="message">
+            {{ message }}
+          </div> -->
         </div>
-      </form>
-
-      <div
-        class="alert"
-        :class="successful ? 'alert-success' : 'alert-danger'"
-        v-if="message"
-      >
-        {{ message }}
       </div>
     </div>
   </div>
@@ -126,32 +131,21 @@ label {
   display: block;
   margin-top: 10px;
 }
-
-.card-container.card {
-  max-width: 350px !important;
-  padding: 40px 40px;
-}
-
 .card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+.form-group input {
+  margin-bottom: 20px;
+}
+.login-page {
+  align-items: center;
+  display: flex;
+  height: 100vh;
 }
 
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
+
+
+h1 {
+  margin-bottom: 1.5rem;
 }
 </style>

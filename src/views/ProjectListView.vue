@@ -1,6 +1,9 @@
 <template>
   <div>
-    <TableComp :columnInfo="columnInfo" :rowsInfo="rowsInfo"></TableComp>
+    <TableComp
+      :column-info="columnInfo"
+      :rows-info="rowsInfo"
+      :to-url="toUrl" />
   </div>
 </template>
 <script>
@@ -25,7 +28,7 @@ export default {
           field: "startDate",
           type: "date",
           dateInputFormat: "yyyy-MM-dd",
-          dateOutputFormat: "MMM do yy",
+          dateOutputFormat: "MM 월 d 일 (yy)",
         },
         {
           label: "완료여부",
@@ -57,6 +60,7 @@ export default {
           completedDate: "-",
         },
       ],
+      toUrl: "/user/projects/register"
     };
   },
 };

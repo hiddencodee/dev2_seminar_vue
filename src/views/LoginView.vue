@@ -16,22 +16,20 @@
                 v-model="loginEmail"
                 class="form-control"
                 placeholder="Enter email address"
-                required
-              />
+                required />
               <input
                 v-model="loginPw"
                 type="password"
                 class="form-control"
                 placeholder="Enter password"
-                required
-              />
+                required />
               <b-button
                 type="button"
                 class="btn btn-primary"
                 variant="primary"
-                @click="loginAction"
-                >Sign in</b-button
-              >
+                @click="loginAction">
+                Sign in
+              </b-button>
               <!-- <input
                   v-model="dd"
                   type="submit"
@@ -40,7 +38,9 @@
                 /> -->
               <p>
                 Don't have an account?
-                <router-link to="/register">Sign up here</router-link>
+                <router-link to="/signup">
+                  Sign up here
+                </router-link>
               </p>
             </div>
             <!-- </form> -->
@@ -52,7 +52,7 @@
 </template>
 <script>
 export default {
-  name: "loginView",
+  name: "LoginView",
   data() {
     return {
       loginEmail: null,
@@ -70,17 +70,12 @@ export default {
   methods: {
     loginAction() {
       if (this.loginEmail == this.userEmail && this.loginPw == this.userPw) {
-        this.$router.push("/");
         this.$store.dispatch("setLoginAction", {
           loginEmail: this.loginEmail,
           loginName: this.userName,
         });
-        /*
-        this.$store.commit("updateLoginStatus", {
-          loginEmail: this.loginEmail,
-          loginName: this.userName,
-        });
-        */
+          this.$router.push("/user/main");
+      
       } else {
         alert("이메일 주소와 비밀번호를 다시 확인해주세요.");
       }

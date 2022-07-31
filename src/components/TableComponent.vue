@@ -7,13 +7,16 @@
       :line-numbers="true"
       :select-options="{
         enabled: true,
-      }"
-    >
+      }">
       <div slot="selected-row-actions">
-        <button @click="deleteAction">삭제</button>
+        <button @click="deleteAction">
+          삭제
+        </button>
       </div>
       <div slot="table-actions">
-        <b-button href="/projects/register">등록</b-button>
+        <router-link :to="toUrl">
+          등록
+        </router-link>
       </div>
     </vue-good-table>
   </div>
@@ -22,8 +25,9 @@
 <script>
 import "vue-good-table/dist/vue-good-table.css";
 import { VueGoodTable } from "vue-good-table";
+
 export default {
-  name: "my-component",
+  name: "MyComponent",
   props: {
     columnInfo: {
       type: Array,
@@ -31,80 +35,14 @@ export default {
     rowsInfo: {
       type: Array,
     },
+    toUrl: {type : String}
   },
   methods: {
     deleteAction() {
       alert("삭제하시겠습니까?");
     },
   },
-  data() {
-    return {
-      /*
-      columns: [
-        {
-          label: "번호",
-          field: "no",
-          type: "number",
-        },
-        {
-          label: "프로젝트명",
-          field: "projectName",
-          type: "number",
-        },
-        {
-          label: "Created On",
-          field: "createdAt",
-          type: "date",
-          dateInputFormat: "yyyy-MM-dd",
-          dateOutputFormat: "MMM do yy",
-        },
-        {
-          label: "Percent",
-          field: "score",
-          type: "percentage",
-        },
-      ],
-      rows: [
-        { id: 1, name: "John", age: 20, createdAt: "", score: 0.03343 },
-        {
-          id: 2,
-          name: "Jane",
-          age: 24,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 3,
-          name: "Susan",
-          age: 16,
-          createdAt: "2011-10-30",
-          score: 0.03343,
-        },
-        {
-          id: 4,
-          name: "Chris",
-          age: 55,
-          createdAt: "2011-10-11",
-          score: 0.03343,
-        },
-        {
-          id: 5,
-          name: "Dan",
-          age: 40,
-          createdAt: "2011-10-21",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          age: 20,
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-      ],
-    */
-    };
-  },
+ 
   components: {
     VueGoodTable,
   },

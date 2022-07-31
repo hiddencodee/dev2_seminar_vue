@@ -10,28 +10,42 @@
           pill
           variant="outline-danger"
           class="signout-btn"
-          @click="signoutAction"
-          >Sign out</b-button
-        >
+          @click="signoutAction">
+          Sign out
+        </b-button>
         <!-- <router-view @authenticated="setAuthenticated" /> -->
       </div>
     </nav>
     <div class="content-wrap">
       <div class="siderbar bg-light">
         <ul>
-          <li><router-link to="/projects">프로젝트 목록</router-link></li>
-          <li><router-link to="/issues">이슈 진행 목록</router-link></li>
-          <li><router-link to="/members">개발 2팀 승인</router-link></li>
+          <li>
+            <router-link to="/user/projects">
+              프로젝트 목록
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/user/issues">
+              이슈 진행 목록
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/user/members">
+              개발 2팀 승인
+            </router-link>
+          </li>
         </ul>
       </div>
-      <div class="content"><router-view /></div>
+      <div class="content">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "basicLayout",
+  name: "BasicLayout",
   data() {
     return {
       authenticated: false,
@@ -52,7 +66,7 @@ export default {
       // axios 로 처리 로그인화면으로 이동시켜
       if (confirm("로그아웃 하시겠습니까?")) {
         this.$store.dispatch("logoutAction");
-        location.href = "/login";
+        location.href = "/";
       }
     },
   },
