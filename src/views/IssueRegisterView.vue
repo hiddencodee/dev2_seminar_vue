@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-5 mt-5 mr-1">
+  <div class="ml-5 mt-5 mr-1 div-register">
     <b-form
       @submit="onSubmit"
       @reset="onReset"
@@ -10,7 +10,7 @@
         label-for="input-projectList">
         <b-form-select
           id="input-projectList"
-          v-model="form.projectList"
+          v-model="form.project"
           :options="projectList"
           required />
       </b-form-group>
@@ -26,45 +26,48 @@
       </b-form-group>
       <b-form-group
         id="input-group-3"
-        label="시작일"
-        label-for="input-startDate">
-        <b-form-datepicker
-          id="input-startDate"
-          v-model="value"
-          class="mb-2" />
-      </b-form-group>
-      <b-form-group
-        id="input-group-4"
-        label="만료일"
-        label-for="input-completeDate">
-        <b-form-datepicker
-          id="input-completeDate"
-          v-model="value"
-          class="mb-2" />
-      </b-form-group>
-      <b-form-group
-        id="input-group-5"
-        label="진행현황"
-        label-for="input-progressCheck">
+        label="이슈 종류"
+        label-for="input-issueType">
         <b-form-select
-          id="input-progressCheck"
-          v-model="form.ingCheck"
-          :options="ingCheck"
+          id="input-issueType"
+          v-model="form.issueType"
+          :options="issueType"
           required />
       </b-form-group>
       <b-form-group
-        id="input-group-6"
-        label="프로젝트 설명"
-        label-for="input-projectDescription">
+        id="input-group-4"
+        label="마감일"
+        label-for="input-deadline">
+        <b-form-datepicker
+          id="input-deadline"
+          v-model="value"
+          class="mb-2" />
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-5"
+        label="이슈 상세 설명"
+        label-for="input-issueDescription">
         <b-form-textarea
-          id="input-projectDescription"
+          id="input-issueDescription"
           v-model="text"
-          placeholder="프로젝트에 대한 설명을 적어주세요."
+          placeholder="이슈에 대한 설명을 적어주세요."
           rows="3"
           max-rows="6" />
       </b-form-group>
+      
+      <b-form-group
+        id="input-group-6"
+        label="작업자"
+        label-for="input-workerName">
+        <b-form-select
+          id="input-workerName"
+          v-model="form.workerName"
+          :options="workerName"
+          required />
+      </b-form-group>
 
-      <pre class="mt-3 mb-0">{{ text }}</pre>
+      
       <!-- <p>Value: '{{ value }}'</p> -->
 
       <!--       
@@ -82,12 +85,12 @@
       <b-button
         type="submit"
         variant="primary">
-        Submit
+        등록
       </b-button>
       <b-button
         type="reset"
         variant="danger">
-        Reset
+        취소
       </b-button>
     </b-form>
     <!-- <b-card class="mt-3" header="Form Data Result">
@@ -102,9 +105,10 @@ export default {
       form: {
         email: "",
         name: "",
-        projectList: null,
+        project: null,
+        issueType: null,
         checked: [],
-        ingCheck: "",
+        workerName: "",
       },
       projectList: [
         { text: "프로젝트를 선택해주세요", value: null },
@@ -113,11 +117,18 @@ export default {
         "코코넛",
         "교보생명",
       ],
-      ingCheck: [
-        { text: "진행현황을 선택해주세요", value: null },
-        "진행중",
-        "완료",
-        "시작전",
+      issueType: [
+        {text: "이슈 종류를 선택해주세요", value: null},
+        "개별업무",
+        "요구사항"
+      ],
+      workerName: [
+        { text: "작업자를 선택해주세요", value: null },
+        "홍재광",
+        "이현수",
+        "박재현",
+        "박민아",
+        "김지아",
       ],
       show: true,
     };
@@ -127,19 +138,7 @@ export default {
       event.preventDefault();
       alert(JSON.stringify(this.form));
     },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
-    },
+    
   },
 };
 </script>

@@ -5,6 +5,7 @@ import ProjectListView from "../views/ProjectListView.vue";
 import ProjectRegisterView from "../views/ProjectRegisterView.vue";
 import IssueListView from "../views/IssueListView";
 import IssueRegisterView from "../views/IssueRegisterView";
+import MemberListView from "../views/MemberListView";
 import BasicLayout from "@/layouts/CommonLayout.vue";
 import MemberRegisterView from "../views/MemberRegisterView.vue";
 import LoginView from "../views/LoginView.vue";
@@ -44,6 +45,10 @@ const routes = [
       {
         path: "/user/issues/register",
         component: IssueRegisterView,
+      },
+      {
+        path: "/user/members",
+        component: MemberListView,
       },
     ],
     /*

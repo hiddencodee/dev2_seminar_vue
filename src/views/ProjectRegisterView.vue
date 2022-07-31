@@ -70,12 +70,12 @@
       <b-button
         type="submit"
         variant="primary">
-        Submit
+        등록
       </b-button>
       <b-button
         type="reset"
         variant="danger">
-        Reset
+        취소
       </b-button>
     </b-form>
   </div>
