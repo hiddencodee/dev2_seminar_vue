@@ -68,12 +68,21 @@ export default {
     },
   },
   methods: {
-    loginAction() {
+    async loginAction() {
+      
+      
+      
+      await this.$store.dispatch("loginModule/signIn", {
+          loginEmail: this.loginEmail,
+          loginPw: this.loginPw,
+        });
+      
       if (this.loginEmail == this.userEmail && this.loginPw == this.userPw) {
-        this.$store.dispatch("setLoginAction", {
+        await this.$store.dispatch("setLoginAction", {
           loginEmail: this.loginEmail,
           loginName: this.userName,
         });
+
           this.$router.push("/user/main");
       
       } else {

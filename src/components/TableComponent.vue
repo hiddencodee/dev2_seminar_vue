@@ -31,11 +31,14 @@ export default {
   props: {
     columnInfo: {
       type: Array,
+      default: new Array
     },
     rowsInfo: {
       type: Array,
+      default: new Array
     },
-    toUrl: {type : String}
+    toUrl: {type : String,
+    default: new Array}
   },
   methods: {
     deleteAction() {
