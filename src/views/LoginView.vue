@@ -1,54 +1,38 @@
 <template>
-  <div>
-    <div class="login-page">
-      <transition name="false">
-        <div class="wallpaper-login"></div>
-      </transition>
-      <div class="wallpaper-register"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-            <!-- <form name="form" @submit.prevent="loginAction()"> -->
-            <div class="card login">
-              <h1>Sign In</h1>
-
-              <input
-                v-model="loginEmail"
-                class="form-control"
-                placeholder="Enter email address"
-                required />
-              <input
-                v-model="loginPw"
-                type="password"
-                class="form-control"
-                placeholder="Enter password"
-                required />
-              <b-button
-                type="button"
-                class="btn btn-primary"
+<b-container fluid>
+  <b-form @submit.prevent="loginAction()">
+    <h1>Sign In</h1>
+    <b-form-group label="Email"
+                    label-for="loginEmail">
+                    <b-form-input
+                      type="text"
+                      id="loginEmail"
+                      placeholder="Enter email address"
+                      v-model="loginEmail" />
+                  </b-form-group>
+                  <b-form-group label="Password"
+                    label-for="loginPw">
+                    <b-form-input
+                      type="password"
+                      id="loginPw"
+                      placeholder="Enter password"
+                      v-model="loginPw"/>
+                  </b-form-group>
+                  <b-button
+                
                 variant="primary"
                 @click="loginAction">
                 Sign in
               </b-button>
-              <!-- <input
-                  v-model="dd"
-                  type="submit"
-                  class="btn btn-primary"
-                  @click="loginAction"
-                /> -->
               <p>
                 Don't have an account?
                 <router-link to="/signup">
                   Sign up here
                 </router-link>
               </p>
-            </div>
-            <!-- </form> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </b-form>
+</b-container>
+  
 </template>
 <script>
 export default {
@@ -57,9 +41,6 @@ export default {
     return {
       loginEmail: null,
       loginPw: null,
-      userEmail: "minah",
-      userPw: "minahPw",
-      userName: "박민아",
     };
   },
   computed: {
@@ -68,26 +49,11 @@ export default {
     },
   },
   methods: {
-    async loginAction() {
-      
-      
-      
-      await this.$store.dispatch("loginModule/signIn", {
+    loginAction() {
+      this.$store.dispatch("loginModule/signIn", {
           loginEmail: this.loginEmail,
           loginPw: this.loginPw,
         });
-      
-      if (this.loginEmail == this.userEmail && this.loginPw == this.userPw) {
-        await this.$store.dispatch("setLoginAction", {
-          loginEmail: this.loginEmail,
-          loginName: this.userName,
-        });
-
-          this.$router.push("/user/main");
-      
-      } else {
-        alert("이메일 주소와 비밀번호를 다시 확인해주세요.");
-      }
     },
   },
 };

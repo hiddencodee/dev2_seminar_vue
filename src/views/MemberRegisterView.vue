@@ -1,78 +1,44 @@
 <template>
-  <div>
-    <div class="login-page">
-      <div class="wallpaper-register"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-            <form
-              name="form"
-              @submit.prevent="handleRegister">
-              <div class="card login">
-                <h1>Sign Up</h1>
-                <div v-if="!successful">
-                  <div class="form-group">
-                    <label for="username">이름</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="username"
-                      v-model="user.username"
-                      v-validate="'required|min:3|max:20'" />
-                    <!-- <div
-                      class="alert-danger"
-                      v-if="submitted && errors.has('username')">
-                      {{ errors.first("username") }}
-                    </div> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      name="email"
-                      v-model="user.email"
-                      v-validate="'required|email|max:50'" />
-                    <!-- <div
-                      class="alert-danger"
-                      v-if="submitted && errors.has('email')">
-                      {{ errors.first("email") }}
-                    </div> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      name="password"
-                      v-model="user.password"
-                      v-validate="'required|min:6|max:40'" />
-                    <!-- <div
-                      class="alert-danger"
-                      v-if="submitted && errors.has('password')">
-                      {{ errors.first("password") }}
-                    </div> -->
-                  </div>
-                  <b-button
-                    type="button"
-                    class="btn btn-primary"
-                    variant="primary">
-                    Sign Up
-                  </b-button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- <div
-            class="alert"
-            :class="successful ? 'alert-success' : 'alert-danger'"
-            v-if="message">
-            {{ message }}
-          </div> -->
-        </div>
-      </div>
-    </div>
-  </div>
+
+      <b-container fluid>
+          <h1>Sign Up</h1>
+          
+            <b-form-group label="이름"
+              label-for="username">
+              <b-form-input
+                type="text"
+                id="username"
+                placeholder="Enter name"
+                v-model="user.username"
+                v-validate="'required|min:3|max:20'" />
+            </b-form-group>
+
+            <b-form-group label="Email"
+              label-for="email">
+              <b-form-input
+                type="email"
+                id="email"
+                placeholder="Enter email address"
+                v-model="user.email"
+                v-validate="'required|email|max:50'" />
+            </b-form-group>
+
+            <b-form-group label="Password"
+              label-for="password">
+              <b-form-input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                v-model="user.password"
+                v-validate="'required|min:6|max:40'" />
+            </b-form-group>
+            <b-button
+              variant="primary"
+              @click="handleRegister">
+              Sign Up
+            </b-button>
+      </b-container>
+
 </template>
 
 <script>
@@ -93,34 +59,9 @@ export default {
       message: "",
     };
   },
-  mounted() {
-    // 로그인 정보가 있으면 메인화면으로 보내기
-    if (this.loggedIn == true) {
-      this.$router.push("/");
-    }
-  },
   methods: {
     handleRegister() {
-      this.message = "";
-      this.submitted = true;
-
-      this.$validator.validate().then((valid) => {
-        if (valid) {
-          this.$store
-            .dispatch("auth/register", this.user)
-            .then(
-              (data) => {
-                this.message = data.message;
-                this.successful = true;
-              },
-              (error) => {
-                this.message = error.message;
-                this.successful = false;
-              }
-            )
-            .then(this.$router.push("/"));
-        }
-      });
+      
     },
   },
 };
