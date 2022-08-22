@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import loginModule from "./loginModule";
+import loginModule from "@/modules/loginModule";
 import axios from 'axios'
 
 Vue.use(Vuex);
@@ -41,21 +41,6 @@ export default new Vuex.Store({
       if(res.data != null){
         commit("setUserName",  res.data.NAME);
       }
-      // post 는 promise를 return 해줌
-      // promise 가 이렇게 할거야 라고 해주는 객체 -> 약속이 지켜졋는지 봐야하는데 -> await 를 써주면, 그 약속이 지켜지는지 보고 그 다음줄이 실행이된다.
-      // 근데, 나는 이미 그 확인하는작업까지 then이랑catch로 다 해버린거다
-      // 결론적으로 기다려는주데, 
-      /*
-      .then(function(response){
-        console.log(response)
-        if(response.data != null){
-          commit("setUserName",  response.data.NAME);
-        }
-      })
-      .catch(function(){
-        console.log('실패');
-      })
-      */
     },
   }
   

@@ -13,14 +13,11 @@ const loginModule = {
     },
       mutations: {
         updateLoginStatus(state, { loginEmail, loginName }) {
-          console.log('loginEmail' + loginEmail);
-          console.log('loginName' + loginName);
           state.isLogin = true;
           state.loginEmail = loginEmail;
           state.loginName = loginName;
           localStorage.setItem("isLogin", true);
           localStorage.setItem("userName", loginName);
-          console.log(localStorage.getItem("userName"));
         },
         updateLogoutStatus(state) {
           state.isLogin = false;
@@ -37,33 +34,34 @@ const loginModule = {
           // httpheader 에 authrization에 저장
           const res = await axios.post('/api/login/action',{ loginEmail, loginPw });
           if(res.data.isSuccess == true){
-            console.log(res.data)
-            var userName = res.data.NAME
-            console.log('userName' + userName)
-            await commit("updateLoginStatus", { loginEmail, userName });
-            console.log(this.getters['loginModule/getUserInfo'])
+            var userName = res.data.userInfo.NAME
+            await commit("updateLoginStatus", { loginEmail, loginName:userName });
             if(this.getters['loginModule/getUserInfo'] == true){
               router.push("/user/main")
             }
           }else{
             console.log('실패');
-            console.log(res);
           }
         },
         
-        /*
-        signUp({ userName, userEmail, userPw }){
-          var data = {userName : userName,
-            loginPw : loginPw}
-           axios.post('/api/login/action',data)
-          .then(function(response){
-            console.log(response);
-          })
-          .catch(function(){
-            console.log('실패');
-          })
+        async signUp(context, params){
+          try{
+            const res = await axios.post('/api/signUp/action',params);
+            if(res.data.isSuccess == true){
+              alert('회원가입이 완료되었습니다.');
+            }else{
+              console.log(res)
+              if(res.data.errorMsg != null && res.data.errorMsg == 'emailDup'){
+                alert('이미 등록된 이메일 주소입니다. 다시 입력해주세요.');  
+              }else{
+                alert('화원가입을 진행중 오류가 발생했습니다. 관리자에게 문의해주세요.');
+              }
+            }
+          }catch{
+            alert('화원가입을 진행중 오류가 발생했습니다. 관리자에게 문의해주세요.');
+          }
         },
-        */
+
         setLoginAction({ commit }, { loginEmail, loginName }) {
             
           commit("updateLoginStatus", { loginEmail, loginName });

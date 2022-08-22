@@ -1,38 +1,39 @@
 <template>
-<b-container fluid>
-  <b-form @submit.prevent="loginAction()">
-    <h1>Sign In</h1>
-    <b-form-group label="Email"
-                    label-for="loginEmail">
-                    <b-form-input
-                      type="text"
-                      id="loginEmail"
-                      placeholder="Enter email address"
-                      v-model="loginEmail" />
-                  </b-form-group>
-                  <b-form-group label="Password"
-                    label-for="loginPw">
-                    <b-form-input
-                      type="password"
-                      id="loginPw"
-                      placeholder="Enter password"
-                      v-model="loginPw"/>
-                  </b-form-group>
-                  <b-button
+  <b-container fluid>
+    <b-form @submit.prevent="loginAction()">
+      <h1>Sign In</h1>
+      <b-form-group
+        label="Email"
+        label-for="loginEmail">
+        <b-form-input
+          type="text"
+          id="loginEmail"
+          placeholder="Enter email address"
+          v-model="loginEmail" />
+      </b-form-group>
+      <b-form-group
+        label="Password"
+        label-for="loginPw">
+        <b-form-input
+          type="password"
+          id="loginPw"
+          placeholder="Enter password"
+          v-model="loginPw" />
+      </b-form-group>
+      <b-button
                 
-                variant="primary"
-                @click="loginAction">
-                Sign in
-              </b-button>
-              <p>
-                Don't have an account?
-                <router-link to="/signup">
-                  Sign up here
-                </router-link>
-              </p>
-  </b-form>
-</b-container>
-  
+        variant="primary"
+        @click="loginAction">
+        Sign in
+      </b-button>
+      <p>
+        Don't have an account?
+        <router-link to="/signup">
+          Sign up here
+        </router-link>
+      </p>
+    </b-form>
+  </b-container>
 </template>
 <script>
 export default {
