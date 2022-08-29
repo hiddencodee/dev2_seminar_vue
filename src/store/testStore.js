@@ -1,22 +1,76 @@
 /* eslint-disable no-plusplus */
+import axios from "axios";
+
 const testStore = {
   namespaced: true,
-  state: { // 공통 관리되는 상태값을 관리,  접근방법- this.$store.state.items
+  state: {
     tardy: 0,
-  },
-  getters: { // 공유되는 상태 값을 조회 로직을 관리, 접근방법 - this.$store.getters['경로명/함수명']
+    count: 33,
+    todos: [
+      {id : 1, text: "안녕하세요", done: true},
+      {id : 2, text: "안녕히계세요", done: false},
+    ],
 
   },
-  mutations: { // 상태 값을 변경하는 로직을 관리, 접근방법 - this.$store.commit('경로명/함수명')
+  getters: {
+    doneTodos(state){
+      return state.todos.filter(todo => todo.done)
+    },
+    doneTodoCount(state, getters){
+      return getters.doneTodos.length
+    },
+    getTodoById : (state) => (id) => {
+      console.log(id);
+      return state.todos.find(todo => todo.id === id)
+    }
+  },
+  mutations: {
     addTardy(state) {
       state.tardy++;
     },
-  },
-  actions: { // 비동기 통신 및 동작을 정의하고 관리, 접근방법 - this.$store.dispatch('경로명/함수명')
-    addTardy(result) {
-      return result.commit('addTardy');
+    addTardy2(state, n){
+      state.tardy += n
     },
+    addTardy3(state, payload){
+      state.tardy += payload.amount
+    }
+  },
+  actions: {
+    addTardy( {commit} ) {
+      commit('addTardy');
+      return this.state.tardy
+    },
+    addTardy2 ( {commit }){
+      setTimeout(() => {
+        commit('addTardy')
+      }, 1000)
+    },
+
+    actionA ({ commit }) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          commit('addTardy2')
+          resolve()
+        },1000)
+      })
+    },
+
+    keepLogin(){
+      console.log("keepLogin!!!!!!");
+      axios.post('/api/keepLogin')
+      .then(response => {
+        console.log(response.data);
+        console.log("여기여깅겨이ㅕ이겨ㅣ")
+
+      })
+      .catch( error => {
+          console.log(error)
+      })
+
+    }
+
   },
 };
 
 export default testStore;
+

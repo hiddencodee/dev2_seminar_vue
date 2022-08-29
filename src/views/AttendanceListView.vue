@@ -51,12 +51,28 @@ import TableComponent from '../components/TableComponent.vue';
  export default {
     data() {
       return {
-        fields: ['이름', '부서', '직위', '종류', '등록일시', '승인일시', '승인상태'],
-        items: [
-          { 이름: '김지아', 부서: '개발2팀', 직위: '매니저', 종류: '연차', 등록일시: '2022-07-10', 승인일시: '-', 승인상태: '대기'},
-        ],
+        fields: ['이름', '부서', '직위', '종류', '근태일자', '등록일시', '승인일시', '승인상태'],
+        items: [],
         selectMode: '부서선택'
       }
+    },
+    mounted(){
+      this.$store.dispatch('listStore/attendanceList')
+        .then(() => {
+          this.items = this.$store.state.listStore.attdDataList;
+        })
+
+        this.$store.dispatch('loginStore/keepLogin')
+        .then(() => {
+          if(this.$store.state.loginStore.loginYN){
+            console.log("로그인유지");
+          }else{
+            console.log("로그인유지실패");
+          }
+        })
+        .catch(() => {
+          console.log("로그인유지로직오류");
+        })
     },
 
     components: {

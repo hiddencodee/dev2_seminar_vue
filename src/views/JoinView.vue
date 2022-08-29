@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 <template>
   <div id="container">
-    {{ msg }}
+    회 원 가 입
     <div id="login">
       <b-container fluid>
         <b-row class="my-1">
@@ -10,7 +10,7 @@
           </b-col>
           <b-col sm="6">
             <b-form-input
-              id=""
+              v-model="mbrId"
               type="email" />
           </b-col>
           <b-col sm="2">
@@ -25,7 +25,7 @@
           </b-col>
           <b-col sm="8">
             <b-form-input
-              id=""
+              v-model="mbrPw"
               type="password" />
           </b-col>
         </b-row>
@@ -35,11 +35,21 @@
           </b-col>
           <b-col sm="8">
             <b-form-input
-              id=""
               type="password" />
           </b-col>
         </b-row>
+        <b-row class="my-1">
+          <b-col sm="4">
+            이름
+          </b-col>
+          <b-col sm="8">
+            <b-form-input
+              v-model="mbrNm"
+              type="text" />
+          </b-col>
+        </b-row>
 
+        <!--
         <b-row class="my-1">
           <b-col sm="4">
             주소
@@ -72,6 +82,7 @@
               type="text" />
           </b-col>
         </b-row>
+        -->
 
         <b-row class="my-1">
           <b-col sm="4">
@@ -79,8 +90,8 @@
           </b-col>
           <b-col sm="8">
             <b-form-select
-              v-model="depart"
-              :options="departs" />
+              v-model="mbrDept"
+              :options="this.$store.state.joinStore.departs" />
           </b-col>
         </b-row>
         <b-row class="my-1">
@@ -89,8 +100,8 @@
           </b-col>
           <b-col sm="8">
             <b-form-select
-              v-model="position"
-              :options="this.$store.state.joinStore.position" />
+              v-model="mbrType"
+              :options="this.$store.state.joinStore.types" />
           </b-col>
         </b-row>
       </b-container>
@@ -107,7 +118,7 @@
       block
       variant="success"
       id="joinBtn"
-      @click="move()">
+      @click="joinSubmitBtn()">
       회원가입
     </b-button>
   </div>
@@ -133,6 +144,7 @@
   margin: 0 auto;
   background-color:lightseagreen;
   border-color :lightseagreen;
+  display: inline;
 }
 #beforeBtn{
   width: 200px;
@@ -140,6 +152,7 @@
   background-color:#dee2e6;
   border-color :#dee2e6;
   color: lightseagreen;
+  display: inline;
 }
 </style>
 
@@ -150,20 +163,14 @@ export default {
   data() {
     return {
       modalShow: false,
-      msg: '회 원 가 입',
+      mbrId: '',
+      mbrPw: '',
+      mbrNm: '',
       zip: '',
       addr: '',
       daddr: '',
-      position: null,
-      depart: null,
-      departs: [
-        { value: null, text: '부서선택' },
-        { value: 'a', text: '개발팀' },
-        { value: 'b', text: '디자인팀' },
-        { value: 'c', text: '기획팀' },
-        { value: 'd', text: '회계팀' },
-      ],
-
+      mbrDept: null,
+      mbrType: null,
     };
   },
 
@@ -177,7 +184,7 @@ export default {
   methods: {
 
     beforeBtn() {
-      this.$router.push('/login');
+      this.$router.push('/');
     },
 
     addrSearch(){
@@ -200,6 +207,25 @@ export default {
       }).open();
 
     },
+
+    joinSubmitBtn(){
+      console.log(this.mbrId)
+      const joinInfo = {mbrId : this.mbrId
+        ,mbrPw : this.mbrPw
+        ,mbrNm : this.mbrNm
+        ,mbrDept : this.mbrDept
+        ,mbrType :this.mbrType
+      }
+      console.log(joinInfo);
+      this.$store.dispatch('joinStore/join',joinInfo)
+        .then(() => {
+          alert('정상적으로 가입이 완료되었습니다.')
+          this.$router.push('/');
+        })
+        .catch(() => {
+          console.log("실패");
+        })
+    }
 
   },
   components: {

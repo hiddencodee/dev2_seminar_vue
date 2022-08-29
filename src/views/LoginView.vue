@@ -2,31 +2,28 @@
   <div>
     <router-view />
     <div id="container">
-      인사관리시스템
+      인사관리시스템 로그인
       <div id="login">
         <form>
-          <!-- 메서드 생성 -->
-
           <b-input-group
-            prepend="@"
             class="mb-2 mr-sm-2 mb-sm-0">
             <b-form-input
-              id="inline-form-input-username"
-              placeholder="이메일을 입력하세요." />
+              placeholder="이메일을 입력하세요."
+              v-model="loginInfo.email" />
           </b-input-group>
           <b-input-group
-            prepend="@"
             class="mb-2 mr-sm-2 mb-sm-0">
             <b-form-input
-              id="inline-form-input-username"
-              placeholder="비밀번호를 입력하세요." />
+              type="password"
+              placeholder="비밀번호를 입력하세요."
+              v-model="loginInfo.password" />
           </b-input-group>
 
           <b-button
             block
             variant="success"
             id="loginBtn"
-            @click="move()">
+            @click="onClickLogin()">
             로 그 인
           </b-button>
 
@@ -38,10 +35,7 @@
         </form>
       </div>
 
-      <SnsLogin
-        :title="title"
-        @titleFromChild="titleChange" />
-      {{ title }}
+      <SnsLogin />
     </div>
   </div>
 </template>
@@ -75,6 +69,20 @@ import SnsLogin from '../components/SnsLogin.vue';
 
 export default {
 
+  mounted(){
+    this.$store.dispatch('loginStore/keepLogin')
+        .then(() => {
+          if(this.$store.state.loginStore.loginYN){
+            console.log("로그인유지");
+          }else{
+            console.log("로그인유지실패");
+          }
+        })
+        .catch(() => {
+          console.log("로그인유지로직오류");
+        })
+  },
+
   created(){
     const script = document.createElement('script');
     script.src = '//developers.kakao.com/sdk/js/kakao.js';
@@ -82,20 +90,32 @@ export default {
 
   },
 
-
   data() {
     return {
-      title : ""
+      loginInfo : {
+        email : ''
+        ,password : ''
+      }
     };
   },
   methods: {
-    move() {
-      alert('로그인이 완료되었습니다.');
-      this.$router.push('/main');
-    },
-    titleChange(title) {
-      this.title = title
-    }
+    onClickLogin(){
+      const loginInfo = this.loginInfo
+      console.log(loginInfo.email);
+      this.$store.dispatch('loginStore/login',loginInfo)
+        .then(() => {
+          if(this.$store.state.loginStore.loginYN){
+            alert('로그인에 성공하였습니다.')
+            this.$router.push('/main');
+          }else{
+            alert('로그인에 실패하였습니다.')
+          }
+        })
+        .catch(() => {
+          console.log("실패");
+        })
+      }
+
   },
 
   components: {

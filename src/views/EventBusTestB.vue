@@ -1,5 +1,6 @@
 <template>
   <div>
+    <EventBusTestA />
     <section>
       카운트 : {{ receivedClickCount }}
     </section>
@@ -13,6 +14,7 @@
 
 <script>
 import {EventBus} from '../lib/event-bus';
+import EventBusTestA from '../views/EventBusTestA.vue';
 export default {
   data(){
     return{
@@ -23,7 +25,10 @@ export default {
     EventBus.$on("eventbus",clickedCount => {
       this.receivedClickCount = clickedCount;
     })
-  }
+  },
+  components:{
+    EventBusTestA
+  },
 };
 
 </script>

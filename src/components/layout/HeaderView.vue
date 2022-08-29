@@ -8,7 +8,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link
-              to="/"
+              to="/main"
               class="nav-link">
               <i class="bi bi-grid"></i> 홈
             </router-link>
@@ -27,14 +27,34 @@
               <i class="bi bi-calendar-check"></i> 근태관리
             </router-link>
           </li>
-        </ul>-
+        </ul> <button
+          style="border-style: none;"
+          @click="onClickLogout()">
+          로그아웃
+        </button>
       </div>
     </nav>
   </header>
 </template>
 
 <script>
+export default {
 
+  methods: {
+    onClickLogout(){
+      console.log('로그아웃ㅋㅋ')
+      this.$store.dispatch('loginStore/logout')
+      .then(() => {
+          alert('정상적으로 로그아웃 되었습니다.')
+          this.$router.push('/');
+        })
+        .catch(() => {
+          console.log("실패");
+        })
+    }
+  }
+
+}
 </script>
 
 <style>

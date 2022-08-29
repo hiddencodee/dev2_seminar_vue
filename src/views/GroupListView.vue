@@ -3,7 +3,6 @@
     <div
       style="margin-bottom : 30px; margin-top : 30px;">
       <span style="font-size : xx-large;">조직목록</span>
-      {{ contentlist }}
     </div>
     <router-view />
     <div class="groupTable">
@@ -68,17 +67,13 @@
 
 <script>
 import TableComponent from '../components/TableComponent.vue';
-import axios from 'axios'
 
  export default {
     data() {
       return {
         modes: ['부서선택','개발1팀', '개발2팀', '디자인기획팀'],
-        fields: ['이름', '부서', '직위', '가입등록일시', '권한'],
-        items: [
-          { 이름: '김지아', 부서: '개발2팀', 직위: '매니저', 가입등록일시: '2022-07-10', 권한: '사원'},
-          { 이름: '박민아', 부서: '개발2팀', 직위: '매니저', 가입등록일시: '2022-07-10', 권한: '사원'}
-        ],
+        fields: ['이름', '부서', '직위', '등록일시', '권한'],
+        items: [],
         selectMode: '부서선택',
         contentlist: []
       }
@@ -86,12 +81,22 @@ import axios from 'axios'
 
     //mounted는 페이지가 켜질때 실행됨
     mounted() {
+      this.$store.dispatch('listStore/groupList')
+        .then(() => {
+          this.items = this.$store.state.listStore.groupDataList;
+        })
 
-      axios.get('/api/memberList')
-            .then((response) => {
-                console.warn(response);
-                this.result = response.data
-            })
+      this.$store.dispatch('loginStore/keepLogin')
+        .then(() => {
+          if(this.$store.state.loginStore.loginYN){
+            console.log("로그인유지");
+          }else{
+            console.log("로그인유지실패");
+          }
+        })
+        .catch(() => {
+          console.log("로그인유지로직오류");
+        })
 
     },
 

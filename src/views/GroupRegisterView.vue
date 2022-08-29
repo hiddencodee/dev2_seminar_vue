@@ -60,12 +60,6 @@
         id="joinBtn">
         근태신청 axios
       </b-button>
-      <b-button
-        block
-        @click="submitBt()"
-        variant="danger">
-        근태신청 router
-      </b-button>
     </form>
   </div>
 </template>
@@ -146,10 +140,6 @@ export default {
         console.log("당연실패 :::: " + error);
       });
     },
-
-    submitBt(){
-       this.$router.push({name: 'param', param: {memo: this.memo, sort: this.rmsxo}})
-    }
 
   },
   components: {

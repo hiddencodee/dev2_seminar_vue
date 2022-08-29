@@ -16,15 +16,6 @@
         alt=""
         class="simbol" /> <span id="naverText"> 네이버로 시작하기 </span>
     </div>
-    <form
-      :action="kakaoUrl"
-      target="_blank"
-      method="post"
-      ref="form">
-      <input
-        type="hidden"
-        v-model="loginSubmit" />
-    </form>
   </div>
 </template>
 
@@ -75,22 +66,26 @@ export default {
   data() {
       return {
         kakaoUrl : ''
-        ,loginSubmit : 'kakao'
       }
     },
 
 
   methods : {
     kakaoLoginBtn(){
-       axios.get('/api/kakao_login')
+      axios.get('/api/kakao_login')
             .then((response) => {
               console.log(response.data)
               this.kakaoUrl = response.data
+              //window.location.href = response.data;
               this.kakaoLogin();
             })
     },
     kakaoLogin(){
-      this.$refs.form.submit()
+      console.log(this.kakaoUrl)
+      axios.get(this.kakaoUrl)
+      .then((response) => {
+        console.log(response.data)
+      });
     },
 
     kakaoLogout(){

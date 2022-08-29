@@ -1,6 +1,5 @@
 <template>
   <div>
-    <EventBusTestB />
     <button @click="handleGlobalClickButton">
       카운트 증가하는 버튼!
     </button>
@@ -14,7 +13,6 @@
 
 <script>
 import {EventBus} from '../lib/event-bus';
-import EventBusTestB from '../views/EventBusTestB.vue';
 export default {
   data(){
     return{
@@ -28,9 +26,6 @@ export default {
       this.clickedCount++;
       EventBus.$emit("eventbus", this.clickedCount);
     }
-  },
-  components:{
-    EventBusTestB
   },
 };
 
