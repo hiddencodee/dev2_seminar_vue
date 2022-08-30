@@ -10,7 +10,9 @@
           id="username"
           placeholder="Enter name"
           v-model="user.userName"
-          v-validate="{required : true ,min:3, max:20}" />
+          v-validate="'required|name'"
+          name="name" />
+          <span class="warningText">{{ errors.first('name') }}</span>
       </b-form-group>
 
       <b-form-group
@@ -21,7 +23,9 @@
           id="email"
           placeholder="Enter email address"
           v-model="user.email"
-          v-validate="{required : true , max:50}" />
+          v-validate="'required|email'"
+          name="email" />
+        <span class="warningText">{{ errors.first('email') }}</span>
       </b-form-group>
       <b-form-group
         label="Password"
@@ -30,13 +34,14 @@
           type="password"
           id="password"
           placeholder="Enter password"
-        
           v-model="user.password"
-          v-validate="{required : true , min: 6 ,max:40}" />
+          v-validate="'required|pw'"
+          name="pw" />
+          <span class="warningText">{{ errors.first('pw') }}</span>
       </b-form-group>
       <b-button
         variant="primary"
-        @click="handleRegister">
+        @click.prevent="handleRegister">
         Sign Up
       </b-button>
     </b-form>
@@ -44,6 +49,7 @@
 </template>
 
 <script>
+
 export default {
   name: "MemberRegisterView",
   data() {
@@ -55,8 +61,13 @@ export default {
     };
   },
   methods: {
-    handleRegister() {
-      this.$store.dispatch("loginModule/signUp", this.user)
+   async handleRegister() {
+      const validForm = await this.$validator.validateAll();
+      if(!validForm) return alert('내용을 한번 더 확인해주세요')
+      else{
+        this.$store.dispatch("loginModule/signUp", this.user)
+
+      }
     },
   },
 };
@@ -65,5 +76,8 @@ export default {
 <style scoped>
 h1 {
   margin-bottom: 1.5rem;
+}
+.warningText {
+  color: crimson;
 }
 </style>

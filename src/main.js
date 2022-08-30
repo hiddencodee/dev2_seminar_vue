@@ -5,6 +5,7 @@ import store from "./store";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import axios from "axios";
 import VeeValidate from "vee-validate";
+import '@/utils/veevalidateUtils'
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,8 +18,6 @@ Vue.use(IconsPlugin);
 Vue.use(VeeValidate);
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
-
-
 
 new Vue({
   router,
