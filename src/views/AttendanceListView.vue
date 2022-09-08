@@ -1,5 +1,6 @@
 <template>
   <div>
+    sessionId : {{ sessionId }}
     <div
       style="margin-bottom : 30px; margin-top : 30px;">
       <span style="font-size : xx-large;">근태목록</span>
@@ -53,7 +54,8 @@ import TableComponent from '../components/TableComponent.vue';
       return {
         fields: ['이름', '부서', '직위', '종류', '근태일자', '등록일시', '승인일시', '승인상태'],
         items: [],
-        selectMode: '부서선택'
+        selectMode: '부서선택',
+        sessionId : ''
       }
     },
     mounted(){
@@ -62,17 +64,23 @@ import TableComponent from '../components/TableComponent.vue';
           this.items = this.$store.state.listStore.attdDataList;
         })
 
-        this.$store.dispatch('loginStore/keepLogin')
-        .then(() => {
-          if(this.$store.state.loginStore.loginYN){
-            console.log("로그인유지");
-          }else{
-            console.log("로그인유지실패");
-          }
-        })
-        .catch(() => {
-          console.log("로그인유지로직오류");
-        })
+      this.sessionId = this.$store.state.loginStore.sessionId;
+
+      //세션유지 로직
+      const sessionInfo = this.sessionId
+      this.$store.dispatch('loginStore/keepLogin',sessionInfo)
+      .then(() => {
+        if(this.$store.state.loginStore.sessionId != ''){
+          console.log("로그인유지");
+        }else{
+          console.log("로그인유지실패");
+        }
+      })
+      .catch(() => {
+        console.log("로그인유지로직오류");
+      })
+
+
     },
 
     components: {

@@ -18,7 +18,8 @@ const joinStore = {
       { value: '기획팀', text: '기획팀' },
       { value: '회계팀', text: '회계팀' },
     ],
-    join: "false"
+    join: "false",
+    useYN: "false"
   },
   getters: { // 공유되는 상태 값을 조회 로직을 관리, 접근방법 - this.$store.getters['경로명/함수명']
 
@@ -27,6 +28,12 @@ const joinStore = {
     change(state){
       state.join = true
     },
+    useChangeY(state){
+      state.useYN = true
+    },
+    useChangeN(state){
+      state.useYN = false
+    }
   },
   actions: { // 비동기 통신 및 동작을 정의하고 관리, 접근방법 - this.$store.dispatch('경로명/함수명')
     join( {commit},payload){
@@ -41,8 +48,29 @@ const joinStore = {
         console.log(response + " << resopnce");
           commit('change');
       })
-
     },
+    idDuplication( context, payload ){
+      return axios.post('/api/idDuplication',{
+        mbrId : payload
+      })
+      .then(response => {
+        if(response.data.isSuccess == "true"){
+          if(response.data.idCheck > 0){
+            return "useN"
+          }else{
+            return "useY"
+          }
+        }else{
+          return "fail"
+        }
+      })
+    },
+    useChangeY({commit}){
+      commit('useChangeY');
+    },
+    useChangeN({commit}){
+      commit('useChangeN');
+    }
   },
 };
 

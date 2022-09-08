@@ -39,11 +39,16 @@
 
 <script>
 export default {
-
+  data(){
+    return {
+      sessionId : ''
+    }
+  },
   methods: {
     onClickLogout(){
-      console.log('로그아웃ㅋㅋ')
-      this.$store.dispatch('loginStore/logout')
+      this.sessionId = this.$store.state.loginStore.sessionId;
+      const sessionInfo = this.sessionId
+      this.$store.dispatch('loginStore/logout',sessionInfo)
       .then(() => {
           alert('정상적으로 로그아웃 되었습니다.')
           this.$router.push('/');
@@ -51,7 +56,8 @@ export default {
         .catch(() => {
           console.log("실패");
         })
-    }
+    },
+
   }
 
 }

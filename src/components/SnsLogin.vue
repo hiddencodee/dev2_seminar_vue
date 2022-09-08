@@ -18,7 +18,6 @@
     </div>
     <form
       :action="kakaoUrl"
-      target="_blank"
       method="post"
       ref="form">
       <input
@@ -81,16 +80,12 @@ export default {
 
 
   methods : {
-    kakaoLoginBtn(){
-       axios.get('/api/kakao_login')
+    async kakaoLoginBtn (){
+        await axios.get('/api/kakao_login')
             .then((response) => {
               console.log(response.data)
-              this.kakaoUrl = response.data
-              this.kakaoLogin();
+              window.location.href = response.data
             })
-    },
-    kakaoLogin(){
-      this.$refs.form.submit()
     },
 
     kakaoLogout(){

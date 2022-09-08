@@ -6,7 +6,7 @@ import Join from '../views/JoinView.vue';
 import GroupList from '../views/GroupListView.vue';
 import GroupRegister from '../views/GroupRegisterView.vue';
 import AttendanceList from '../views/AttendanceListView.vue';
-import CounterA from '../views/CounterA.vue';
+import kakaoLogin from '../views/kakaoLogin.vue';
 import store from '@/store';
 
 // Vue와 VueRouter 연결
@@ -23,7 +23,7 @@ const routes = [
     name: 'home',
     component: HomeView,
     beforeEnter: function(to, from, next) {
-      if(store.state.loginStore.loginYN == true ){
+      if(store.state.loginStore.sessionId != ''){
         next();
       }else{
         alert('로그인 후 이용하실수 있습니다.')
@@ -41,7 +41,7 @@ const routes = [
     name: 'groupList',
     component: GroupList,
     beforeEnter: function(to, from, next) {
-      if(store.state.loginStore.loginYN == true ){
+      if(store.state.loginStore.sessionId != '' ){
         next();
       }else{
         alert('로그인 후 이용하실수 있습니다.')
@@ -55,22 +55,22 @@ const routes = [
     component: GroupRegister,
   },
   {
-    path: '/vuexTest',
-    name: 'vuexTest',
-    component: CounterA,
-  },
-  {
     path: '/attendanceList',
     name: 'attendanceList',
     component: AttendanceList,
     beforeEnter: function(to, from, next) {
-      if(store.state.loginStore.loginYN == true ){
+      if(store.state.loginStore.sessionId != '' ){
         next();
       }else{
         alert('로그인 후 이용하실수 있습니다.')
         next("/");
       }
     }
+  },
+  {
+    path : '/kakaoLogin',
+    name : 'kakaoLogin',
+    component : kakaoLogin,
   }
 ];
 

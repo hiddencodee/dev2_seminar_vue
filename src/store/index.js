@@ -7,6 +7,8 @@ import joinStore from '@/store/joinStore';
 import loginStore from '@/store/loginStore';
 import listStore from '@/store/listStore';
 
+import createPersistedState from 'vuex-persistedstate';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -17,4 +19,10 @@ export default new Vuex.Store({
     loginStore,
     listStore,
   },
+  plugins: [
+    //주목! : 여기에 쓴 모듈만 저장됩니다.
+    createPersistedState({
+      paths: ['loginStore'],
+    })
+  ]
 });

@@ -36,6 +36,7 @@ const listStore = {
         })
     },
     attendanceList( {commit} ){
+
       var attdlistArr = [];
       var map = {};
       return axios.get('/api/attendance/attendanceList')

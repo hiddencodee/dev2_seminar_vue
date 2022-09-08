@@ -75,20 +75,23 @@ import TableComponent from '../components/TableComponent.vue';
         fields: ['이름', '부서', '직위', '등록일시', '권한'],
         items: [],
         selectMode: '부서선택',
-        contentlist: []
+        contentlist: [],
+        sessionId : '',
       }
     },
 
     //mounted는 페이지가 켜질때 실행됨
     mounted() {
+      this.sessionId = this.$store.state.loginStore.sessionId;
+
       this.$store.dispatch('listStore/groupList')
         .then(() => {
           this.items = this.$store.state.listStore.groupDataList;
         })
-
-      this.$store.dispatch('loginStore/keepLogin')
+      const sessionInfo = this.sessionId
+      this.$store.dispatch('loginStore/keepLogin',sessionInfo)
         .then(() => {
-          if(this.$store.state.loginStore.loginYN){
+          if(this.$store.state.loginStore.sessionId != ''){
             console.log("로그인유지");
           }else{
             console.log("로그인유지실패");

@@ -14,7 +14,7 @@
               type="email" />
           </b-col>
           <b-col sm="2">
-            <b-button id="">
+            <b-button @click="idDuplication()">
               중복확인
             </b-button>
           </b-col>
@@ -48,41 +48,6 @@
               type="text" />
           </b-col>
         </b-row>
-
-        <!--
-        <b-row class="my-1">
-          <b-col sm="4">
-            주소
-          </b-col>
-          <b-col sm="2">
-            <b-form-input
-              v-model="zip"
-              type="text"
-              placeholder="우편번호"
-              disabled />
-          </b-col>
-          <b-col sm="4">
-            <b-form-input
-              v-model="addr"
-              type="text" />
-          </b-col>
-          <b-col sm="2">
-            <b-button @click="addrSearch()">
-              주소검색
-            </b-button>
-          </b-col>
-        </b-row>
-        <b-row class="my-1">
-          <b-col sm="4">
-            상세주소
-          </b-col>
-          <b-col sm="8">
-            <b-form-input
-              v-model="daddr"
-              type="text" />
-          </b-col>
-        </b-row>
-        -->
 
         <b-row class="my-1">
           <b-col sm="4">
@@ -176,9 +141,7 @@ export default {
 
   //created, mounted
   mounted(){
-    const script = document.createElement('script');    //script 변수 선언해서 <scrpit /> 얘를 만들어가지고 담는다
-    script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';   //script의 src속성에 카카오에서 제공한 주소값을 넣어준다
-    document.head.appendChild(script);    //head에 src 속성까지 만들어진 script소스를 append한다
+
   },
 
   methods: {
@@ -187,40 +150,45 @@ export default {
       this.$router.push('/');
     },
 
-    addrSearch(){
-      new window.daum.Postcode({
-        oncomplete: (data) => {
-          if (this.extraAddress !== '') {
-            this.extraAddress = '';
-          }
-          if (data.userSelectedType === 'R') {
-            // 사용자가 도로명 주소를 선택했을 경우
-            this.addr = data.roadAddress;
-          } else {
-            // 사용자가 지번 주소를 선택했을 경우(J)
-            this.addr = data.jibunAddress;
-          }
-
-          // 우편번호를 입력한다.
-          this.zip = data.zonecode;
-        },
-      }).open();
-
-    },
-
     joinSubmitBtn(){
-      console.log(this.mbrId)
+
+      if( this.$store.state.joinStore.useYN == 'false'){
+        alert('이메일 중복확인을 해주세요.');
+        return false;
+      }
+
+      if( this.mbrNm == ''){
+        alert('이름을 입력해주세요');
+        return false;
+      }
+
       const joinInfo = {mbrId : this.mbrId
         ,mbrPw : this.mbrPw
         ,mbrNm : this.mbrNm
         ,mbrDept : this.mbrDept
         ,mbrType :this.mbrType
       }
-      console.log(joinInfo);
       this.$store.dispatch('joinStore/join',joinInfo)
         .then(() => {
           alert('정상적으로 가입이 완료되었습니다.')
           this.$router.push('/');
+        })
+        .catch(() => {
+          console.log("실패");
+        })
+    },
+
+    idDuplication(){
+      this.$store.dispatch('joinStore/idDuplication',this.mbrId)
+        .then(response => {
+            if(response == "useY"){
+              alert('사용가능한 이메일 입니다.')
+              this.$store.dispatch('joinStore/useChangeY')
+            }else{
+              alert('이미 사용중인 이메일입니다.')
+              this.mbrId = ""
+              this.$store.dispatch('joinStore/useChangeN')
+            }
         })
         .catch(() => {
           console.log("실패");

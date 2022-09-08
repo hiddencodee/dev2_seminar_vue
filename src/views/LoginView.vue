@@ -104,11 +104,11 @@ export default {
       console.log(loginInfo.email);
       this.$store.dispatch('loginStore/login',loginInfo)
         .then(() => {
-          if(this.$store.state.loginStore.loginYN){
+          if(this.$store.state.loginStore.sessionId != ''){
             alert('로그인에 성공하였습니다.')
             this.$router.push('/main');
           }else{
-            alert('로그인에 실패하였습니다.')
+            alert('로그인정보가 일치하지 않습니다. 다시한번 확인해주세요')
           }
         })
         .catch(() => {

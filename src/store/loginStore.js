@@ -5,18 +5,14 @@ const loginStore = {
   namespaced: true,
   state: {
     loginEmail : ""
-    ,loginYN : false
+    ,sessionId : ""
   },
   getters: { // 공유되는 상태 값을 조회 로직을 관리, 접근방법 - this.$store.getters['경로명/함수명']
 
   },
   mutations: { // 상태 값을 변경하는 로직을 관리, 접근방법 - this.$store.commit('경로명/함수명')
-    changeY(state){
-      state.loginYN = true
-    },
-    changeN(state){
-      console.log('여기로와야 loginYN이 false됨')
-      state.loginYN = false
+    changeSession(state, payload){
+      state.sessionId = payload
     },
 
   },
@@ -29,51 +25,56 @@ const loginStore = {
       .then(response => {
         console.log(response + " << resopnce");
         console.log(response.data + " << resopnce.data");
-        if(response.data == "로그인성공"){
-          commit('changeY');
-        }else{
-          commit('changeN');
+        if(response.data.isSuccess == "true"){
+          commit('changeSession',response.data.sessionId);
         }
         /*return Promise.resolve(response)*/
       })
     },
 
-    keepLogin( {commit} ){
-      console.log("keepLogin!!!!!!");
-      axios.post('/api/keepLogin')
+    kakaoLogin( {commit} , payload){
+      axios.post('/api/login',{
+        code : payload
+      })
       .then(response => {
-        console.log(response.data);
-        if(response.data == "유지성공"){
-          commit('changeY');
+        if(response.data.isSuccess == "true"){
+          commit('changeSession',response.data.sessionId);
+          return Promise.resolve("success")
         }else{
-          commit('changeN');
+          return Promise.resolve("fail")
         }
-
       })
-      .catch( error => {
-          console.log(error)
-      })
-
     },
 
-    logout( {commit} ){
-      axios.post('/api/logout')
+    keepLogin( {commit} , payload){
+      console.log("payload : " + payload)
+      axios.post('/api/keepLogin',{
+        sessionId : payload
+      })
       .then(response => {
         console.log(response.data);
-        commit('changeN');
+        if(response.data == "fail"){
+          commit('changeSession','');
+        }
       })
       .catch( error => {
           console.log(error)
       })
     },
 
-    change( {commit}, payload ){
-      if(payload == "Y"){
-        commit('changeY');
-      }else{
-        commit('changeN');
-      }
-    }
+    logout( {commit},payload){
+      console.log("logout 시 payload" + payload)
+      axios.post('/api/logout',{
+        sessionId : payload
+      })
+      .then(response => {
+        console.log(response.data);
+        commit('changeSession','');
+      })
+      .catch( error => {
+          console.log(error)
+      })
+    },
 
   },
 };

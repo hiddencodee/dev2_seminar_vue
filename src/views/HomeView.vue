@@ -100,6 +100,27 @@
 
 <script>
 export default {
+  data() {
+      return {
+        sessionId : ''
+      }
+  },
+  mounted(){
+    this.sessionId = this.$store.state.loginStore.sessionId;
+
+    const sessionInfo = this.sessionId
+    this.$store.dispatch('loginStore/keepLogin',sessionInfo)
+      .then(() => {
+        if(this.$store.state.loginStore.sessionId != ''){
+          console.log("로그인유지");
+        }else{
+          console.log("로그인유지실패");
+        }
+      })
+      .catch(() => {
+        console.log("로그인유지로직오류");
+      })
+  },
   methods: {
     addWork() {
       this.$store.dispatch('testStore/addTardy');
