@@ -8,7 +8,7 @@
           <b-card>
             <b-card-title> <i class="bi bi-moon"></i> 잔여연차</b-card-title>
             <b-card-text>
-              0회
+              {{ leaveDay }} 회
             </b-card-text>
             <b-card-text class="small text-muted">
               기본은 13회 입니다.
@@ -103,12 +103,14 @@ export default {
   data() {
       return {
         sessionId : ''
+        ,leaveDay : ''
       }
   },
   mounted(){
     this.sessionId = this.$store.state.loginStore.sessionId;
-
     const sessionInfo = this.sessionId
+
+
     this.$store.dispatch('loginStore/keepLogin',sessionInfo)
       .then(() => {
         if(this.$store.state.loginStore.sessionId != ''){
@@ -119,6 +121,15 @@ export default {
       })
       .catch(() => {
         console.log("로그인유지로직오류");
+      })
+
+
+    this.$store.dispatch('loginStore/main',sessionInfo)
+      .then(response => {
+        this.leaveDay = response.data.LEAVE_DAY
+      })
+      .catch(() => {
+        console.log("/main 실패")
       })
   },
   methods: {

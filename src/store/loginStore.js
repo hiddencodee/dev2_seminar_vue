@@ -76,6 +76,18 @@ const loginStore = {
       })
     },
 
+    main( context , payload){
+      return axios.post('/api/main',{
+        sessionId : payload
+      })
+      .then(response => {
+        return response;
+      })
+      .catch( error => {
+          console.log(error)
+      })
+    },
+
   },
 };
 

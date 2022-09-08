@@ -11,7 +11,10 @@
           <b-col sm="6">
             <b-form-input
               v-model="mbrId"
-              type="email" />
+              type="text"
+              v-validate="'required|email'"
+              name="email" />
+              <!-- <span>{{ errors.first('email') }}</span> -->
           </b-col>
           <b-col sm="2">
             <b-button @click="idDuplication()">
@@ -119,6 +122,9 @@
   color: lightseagreen;
   display: inline;
 }
+.warningText {
+  color: crimson;
+}
 </style>
 
 <script>
@@ -191,7 +197,7 @@ export default {
             }
         })
         .catch(() => {
-          console.log("실패");
+          console.log("중복확인 실패");
         })
     }
 

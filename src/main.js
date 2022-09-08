@@ -6,9 +6,11 @@ import store from './store';
 import axios from 'axios';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import * as VeeValidate from "vee-validate"
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
+Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
 
